@@ -14,9 +14,9 @@ import CreateProfile from "@/views/User/CreateProfile.vue";
 import EditProfile from "@/components/user/profile/EditProfile.vue";
 import HomeContent from "@/components/user/home/HomeContent.vue";
 import TableProfile from "@/components/user/profile/TableProfile.vue";
-import ShowAnnnce from "@/components/user/home/ShowAnnnce.vue";
 import CreateAnnonce from "@/components/user/profile/CreateAnnonce.vue";
 import TableAnnonce from "@/components/user/profile/TableAnnonce.vue";
+import ShowAnnonce from "@/components/user/home/ShowAnnonce.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -83,7 +83,7 @@ const router = createRouter({
         {
           path: '/annonces/:id',
           name: 'show.annonce',
-          component: ShowAnnnce,
+          component: ShowAnnonce,
           meta: { requiresAuth: true }
         },
       ]

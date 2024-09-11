@@ -9,7 +9,8 @@ const date_arrivee = ref('')
 const origin = ref('')
 const destination = ref('')
 const description = ref('')
-
+const heure_depart = ref('')
+const heure_arrivee = ref('')
 const annonce = ref([])
 const errors = ref({})
 const router = useRouter()
@@ -31,7 +32,6 @@ const onSubmit = async () => {
       }
     })
     annonce.value = await response.data
-    //console.log(annonce.value)
     if (response.data.status === 400) {
       errors.value = response.data.errors;
       alert(response.data.message);
@@ -52,36 +52,39 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  <div class="main">
+  <div class="w-100">
     <div class="kotak_login">
       <p class="tulisan_login">Publier une annonce</p>
-
-    <img :src="logo" alt="Logo">
+        <img :src="logo" alt="Logo">
       <form @submit.prevent="onSubmit">
-        <div class="form-group mb-3">
+        <div class="form-group  mb-3">
           <label>Kilo(s) Disponible(s)</label>
-          <input type="number" v-model="kilos_disponibles" name="kilos_disponibles" class="form_login" placeholder="Kilo(s) Disponible(s)...">
+          <input type="number" v-model="kilos_disponibles" name="kilos_disponibles" class="form_login " placeholder="Kilo(s) Disponible(s)...">
           <p v-if="errors.kilos_disponibles" class="text-danger">{{ errors.kilos_disponibles[0] }}</p>
         </div>
-        <div class="form-group mb-3">
-          <label>Date départ</label>
-          <input type="date" v-model="date_depart" name="date_depart" class="form_login" placeholder="Date départ...">
-          <p v-if="errors.date_depart" class="text-danger">{{ errors.date_depart[0] }}</p>
+        <div class="row">
+          <div class="form-group col-md-6 mb-3">
+            <label>Date et Heure de départ</label>
+            <input type="datetime-local" v-model="date_depart" name="date_depart" class="form_login" placeholder="Date départ...">
+            <p v-if="errors.date_depart" class="text-danger">{{ errors.date_depart[0] }}</p>
+          </div>
+          <div class="form-group col-md-6 mb-3">
+            <label>Date et Heure d'arrivée</label>
+            <input type="datetime-local" v-model="date_arrivee"	name="date_arrivee" class="form_login" placeholder="Date d'arrivée...">
+            <p v-if="errors.date_arrivee" class="text-danger">{{ errors.date_arrivee[0] }}</p>
+          </div>
         </div>
-        <div class="form-group mb-3">
-          <label>Date d'arrivée</label>
-          <input type="date" v-model="date_arrivee"	name="date_arrivee" class="form_login" placeholder="Date d'arrivée...">
-          <p v-if="errors.date_arrivee" class="text-danger">{{ errors.date_arrivee[0] }}</p>
-        </div>
-        <div class="form-group mb-3">
+        <div class="row">
+        <div class="form-group col-md-6 mb-3">
           <label>Origine</label>
-          <input type="date" v-model="origin"	name="origin" class="form_login" placeholder="Origine...">
+          <input type="text" v-model="origin"	name="origin" class="form_login" placeholder="Origine...">
           <p v-if="errors.origin" class="text-danger">{{ errors.origin[0] }}</p>
         </div>
-        <div class="form-group mb-3">
-          <label>Date d'arrivée</label>
-          <input type="date" v-model="destination"	name="destination" class="form_login" placeholder="Destination...">
+        <div class="form-group col-md-6 mb-3">
+          <label>Destination</label>
+          <input type="text" v-model="destination"	name="destination" class="form_login" placeholder="Destination...">
           <p v-if="errors.destination" class="text-danger">{{ errors.destination[0] }}</p>
+        </div>
         </div>
         <div class="form-group mb-3">
           <div class="form-group mb-3">
@@ -117,10 +120,10 @@ h1 {
 }
 
 .kotak_login {
-  width: 350px;
+  /*width: 350px;*/
   background: #f2f2f2;
   /*tengah*/
-  margin: 80px auto;
+  margin: 50px auto;
   padding: 30px 20px;
   box-shadow: 0 0 21px;
 }

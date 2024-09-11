@@ -3,6 +3,7 @@
 namespace App\Http\Resources\User;
 
 use App\Http\Resources\Admin\UserResource;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,6 +24,8 @@ class AnnonceResource extends JsonResource
             'description' => $this->resource->description,
             'origin' => $this->resource->origin,
             'destination' => $this->resource->destination,
+            'created_at' => $this->resource->created_at,
+            'date_now' => Carbon::now(),
             'user' => new UserResource(
                 $this->resource->user
             )

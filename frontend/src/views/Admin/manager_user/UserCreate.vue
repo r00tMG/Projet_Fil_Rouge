@@ -95,45 +95,49 @@ export default {
 
 <template>
 
-  <div class="kotak_login">
+  <div class="kotak_login w-100">
     <p class="tulisan_login">Créer un utilisateur</p>
 
     <img :src="logo" alt="Logo">
     <form @submit.prevent="onRegister" enctype="multipart/form-data">
-      <div class="form-group mb-3">
-        <label>name</label>
-        <input type="text" v-model="name" name="name" class="form_login" placeholder="Name..">
-        <div v-if="errors.name" class="text-danger">{{ errors.name[0] }}</div>
-      </div>
+      <div class="row">
+        <div class="form-group col-md-6 mb-3">
+          <label>name</label>
+          <input type="text" v-model="name" name="name" class="form_login" placeholder="Name..">
+          <div v-if="errors.name" class="text-danger">{{ errors.name[0] }}</div>
+        </div>
 
-      <div class="form-group mb-3">
-        <label>Email</label>
-        <input type="text" v-model="email" name="email" class="form_login" placeholder="Email..">
-        <div v-if="errors.email" class="text-danger">{{ errors.email[0] }}</div>
+        <div class="form-group col-md-6 mb-3">
+          <label>Email</label>
+          <input type="text" v-model="email" name="email" class="form_login" placeholder="Email..">
+          <div v-if="errors.email" class="text-danger">{{ errors.email[0] }}</div>
+        </div>
       </div>
-
-      <div class="form-group mb-3">
-        <label>Password</label>
-        <input type="password" v-model="password"	name="password" class="form_login" placeholder="Password ..">
-        <div v-if="errors.password" class="text-danger">{{ errors.password[0] }}</div>
+      <div class="row">
+        <div class="form-group col-md-6 mb-3">
+          <label>Password</label>
+          <input type="password" v-model="password"	name="password" class="form_login" placeholder="Password ..">
+          <div v-if="errors.password" class="text-danger">{{ errors.password[0] }}</div>
+        </div>
+        <div class="form-group col-md-6 mb-3">
+          <label>Password Confirmation</label>
+          <input type="password" v-model="password_confirmation"	name="password_confirmation" class="form_login" placeholder="Password ..">
+          <div v-if="errors.password_confirmation" class="text-danger">{{ errors.password_confirmation[0] }}</div>
+        </div>
       </div>
-      <div class="form-group mb-3">
-
-        <label>Password Confirmation</label>
-        <input type="password" v-model="password_confirmation"	name="password_confirmation" class="form_login" placeholder="Password ..">
-        <div v-if="errors.password_confirmation" class="text-danger">{{ errors.password_confirmation[0] }}</div>
-      </div>
-      <div class="form-group mb-3">
-        <label>Role(s): </label>
-        <select class="form-select" name="roles" v-model="selectRoles" id="roles" multiple>
-          <option v-for="getRole in getRoles.roles" :key="getRole.id" :value="getRole.name" >{{getRole.name}}</option>
-        </select>
-        <p v-if="errors.roles" class="text-danger">{{errors.roles[0]}}</p>
-      </div>
-      <div>
-        <label>Photo Profile</label>
-        <input type="file"  @change="onProfile"	name="photo_profile" class="form-control form_login" >
-        <div v-if="errors.photo_profile" class="text-danger">{{ errors.photo_profile[0] }}</div>
+      <div class="row">
+        <div class="form-group col-md-6" >
+          <label>Photo Profile</label>
+          <input type="file"  @change="onProfile"	name="photo_profile" class="form-control form_login" >
+          <div v-if="errors.photo_profile" class="text-danger">{{ errors.photo_profile[0] }}</div>
+        </div>
+        <div class="form-group col-md-6 mb-3">
+          <label>Role(s): </label>
+          <select class="form-select" name="roles" v-model="selectRoles" id="roles" multiple>
+            <option v-for="getRole in getRoles.roles" :key="getRole.id" :value="getRole.name" >{{getRole.name}}</option>
+          </select>
+          <p v-if="errors.roles" class="text-danger">{{errors.roles[0]}}</p>
+        </div>
       </div>
       <input type="submit" class="tombol_login" value="Register">
     </form>

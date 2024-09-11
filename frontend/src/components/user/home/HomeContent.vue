@@ -1,59 +1,97 @@
 <script setup>
 import FooterHome from "@/components/user/home/FooterHome.vue";
-import {computed, onMounted, ref} from "vue";
+import { computed, ref } from "vue";
 import axios from "@/axios.js";
-  const annonces = ref([])
-const searchDepart = ref('')
-const searchArrivee= ref('')
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+const annonces = ref([]);
+const searchDepart = ref('');
+const searchArrivee = ref('');
+const searchOrigin = ref('');
+const searchDestination = ref('');
+const hasSearched = ref(false); // Indicateur pour savoir si une recherche a été effectuée
 
- onMounted(async () => {
-  const r = await axios.get('/annonce_on_home')
-   annonces.value = await r.data.annonces
-})
+// Fonction pour effectuer une recherche
+const searchAnnonces = async () => {
+  if (searchDepart.value && searchArrivee.value && searchOrigin.value && searchDestination.value) {
+    const r = await axios.get('/annonce_on_home', {
+      params: {
+        date_depart: searchDepart.value,
+        date_arrivee: searchArrivee.value,
+        origin: searchOrigin.value,
+        destination: searchDestination.value
+      }
+    });
+    annonces.value = r.data.annonces;
+    hasSearched.value = true;
+  }
+};
+
 const filteredAnnonces = computed(() => {
-  return annonces.value.filter((annonce) => {
-    return (
-        //annonce.user.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-        annonce.date_depart.toLowerCase().includes(searchDepart.value.toLowerCase()) ||
-        annonce.date_arrivee.toLowerCase().includes(searchArrivee.value.toLowerCase())
-    )
-  })
-})
-
+  if (searchDepart.value || searchArrivee.value || searchOrigin.value || searchDestination.value) {
+    return annonces.value.filter((annonce) => {
+      return (
+          annonce.date_depart.includes(searchDepart.value) &&
+          annonce.date_arrivee.includes(searchArrivee.value) &&
+          annonce.origin.toLowerCase().includes(searchOrigin.value.toLowerCase()) &&
+          annonce.destination.toLowerCase().includes(searchDestination.value.toLowerCase())
+      );
+    });
+  } else {
+    return [];
+  }
+});
 </script>
 
 <template>
   <main>
-    <div class="corde rounded-circle">
-    </div>
+    <div class="corde rounded-circle"></div>
     <div class="container-fluid">
-      <div class="container  m-5 p-5">
-        <div class="w-75 m-auto m-5 p-5  text-center ">
+      <div class="container m-5 p-5">
+        <div class="w-75 m-auto m-5 p-5 text-center">
           <h3>
-            <!--            Optimisez la gestion de vos excédents avec une solution simple et efficace.<br>-->
-            <span class="text-success">Publiez</span> vos annonces, <span class="text-success">Gérez</span> les réservations,
-            et <span class="text-success">Connectez-vous</span> rapidement avec vos clients grâce à <br><em class="text-success ">MonGP</em>
-            <!--            notre plateforme dédiée à la gratuité partielle.-->
+            <span class="text-success">Publiez</span> vos annonces,
+            <span class="text-success">Gérez</span> les réservations, et
+            <span class="text-success">Connectez-vous</span> rapidement avec vos clients
+            grâce à <em class="text-success">MonGP</em>
           </h3>
         </div>
         <div class="container">
-            <div class="row w-75 m-auto p-5 background rounded ">
-              <div class="form-floating col-md-4">
-                <input type="date"  v-model="searchDepart" class="form-control border border-success p-5" id="floatingInputGroup1" placeholder="">
-                <label for="floatingInputGroup1">Départ</label>
+          <div class="row  m-auto px-4 py-5 background rounded ">
+            <div class="row">
+              <div class="col-md-10 row">
+                <div class=" col-md-3">
+                  <label for="floatingInputGroup1">Depart le</label>
+                  <input type="date" v-model="searchDepart" class="form-control border border-success p-3" id="floatingInputGroup1" placeholder="">
+                </div>
+                <div class=" col-md-3">
+                  <label for="floatingInputGroup1">Arrivée le</label>
+                  <input type="date" v-model="searchArrivee" class="form-control border border-success p-3" id="floatingInputGroup1" placeholder="">
+                </div>
+                <div class=" col-md-3">
+                  <label class="label">Origine</label>
+                  <input type="text" v-model="searchOrigin" class="form-control border border-success p-3" placeholder="Origine">
+                </div>
+                <div class=" col-md-3">
+                  <label class="label">Destination</label>
+                  <input type="text" v-model="searchDestination" class="form-control border border-success p-3" placeholder="Destination">
+                </div>
               </div>
-              <div class="form-floating col-md-4">
-                <input type="date" v-model="searchArrivee" class="form-control border border-success p-5" id="floatingInputGroup1" placeholder="">
-                <label for="floatingInputGroup1">Arrivée</label>
-              </div>
-              <div class="col-md-4">
-                <button class="btn btn-success border p-4 my-2" id="search">Trouve un GP</button>
+              <div class="col-md-2">
+                <button @click="searchAnnonces" class="btn btn-success rounded-5 mt-4 p-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                  </svg>
+                  Trouver un GP</button>
               </div>
             </div>
+
+          </div>
         </div>
       </div>
     </div>
-    <div class="album py-5 bg-body-tertiary" v-if="filteredAnnonces">
+
+    <div v-if="hasSearched && filteredAnnonces.length > 0" class="album py-5 bg-body-tertiary">
       <div class="container">
         <div class="container w-75  d-flex m-4 p-5 gap-5">
           <div class="rounded-circle shadow p-3 bg-light">
@@ -68,57 +106,58 @@ const filteredAnnonces = computed(() => {
           </div>
         </div>
       </div>
-      <div class="container">
-        <div class="table-responsive">
-
-          <table id="dataTableExample" class="table table-bordered">
-            <thead>
-            <tr>
-              <th>GP</th>
-              <th>Depart</th>
-              <th>Arrivée</th>
-              <th>Disponible(Kg)</th>
-              <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr v-if="annonces" v-for="annonce in filteredAnnonces">
-              <td>
-                <router-link to="/profile/index" class="navbar-brand">
-                  <img :src="annonce.user.storage+'/'+annonce.user.photo_profile" width="35px" alt="Photo Profile" class="rounded-circle mx-1"/>
-                  {{annonce.user.name}}
-                </router-link>
-              </td>
-              <td>{{annonce.date_depart}}</td>
-              <td>{{annonce.date_arrivee}}</td>
-              <td>{{annonce.kilos_disponibles}}</td>
-              <td class="d-flex d-inline-block gap-2">
-                <button class="btn btn-sm btn-danger">
-                  <i data-feather="delete"></i>
-                </button>
-                <a class="btn btn-sm btn-success" href="#">
-                  <i data-feather="edit"></i>
-                </a>
-              </td>
-            </tr>
-            <tr v-else>
-                <p class="text-center">Aucun resultat trouvé</p>
-            </tr>
-
-            </tbody>
-          </table>
+      <div class="card mb-3 w-50 m-5 m-auto border-success rounded-1" v-for="annonce in filteredAnnonces" :key="annonce.id">
+        <div class="card-header bg-white border-success">
+          <div class="d-flex justify-content-between align-items">
+            <div>
+              <img class="rounded-circle" :src="`${annonce.user.storage}/${annonce.user.photo_profile}`" width="40px" height="40px" alt="Photo Profile">
+              {{ annonce.user.name }}
+            </div>
+            <div>
+              <p class="text-muted mt-1">Publiée il y a {{ Math.abs(new Date(annonce.date_now).getHours() - new Date(annonce.created_at).getHours()) }}h</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10 border">
+            <div class="card-body">
+              <div class="row p-5">
+                <div class="col-md-3">
+                  <h4 class="card-title">Départ</h4>
+                  <div class="card-title text-success"><strong>{{ new Date(annonce.date_depart).toLocaleDateString() }}</strong></div>
+                  <div class="card-title text-success"><strong>{{(new Date(annonce.date_depart).getHours().toString())}}h {{(new Date(annonce.date_depart).getMinutes().toString())}}min</strong></div>
+                  <div class="card-title">{{ annonce.origin }}</div>
+                </div>
+                <div class="col-md-6 text-center">
+                  <div class="m-auto">
+                    <div class="card-title text-success">{{Math.abs((new Date(annonce.date_arrivee).getHours().toString()) - (new Date(annonce.date_depart).getHours().toString()))}}h {{Math.abs((new Date(annonce.date_arrivee).getMinutes().toString()) - (new Date(annonce.date_depart).getMinutes().toString()))}}min</div>
+                    <hr class="border-success border-2">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <h4 class="card-title">Arrivée</h4>
+                  <div class="card-title text-success"><strong>{{ new Date(annonce.date_arrivee).toLocaleDateString() }}</strong></div>
+                  <div class="card-title text-success"><strong>{{(new Date(annonce.date_arrivee).getHours().toString())}}h {{(new Date(annonce.date_arrivee).getMinutes().toString())}}min</strong></div>
+                  <div class="card-title">{{ annonce.destination }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 ">
+            <h4 class="card-title mt-5">Poids</h4>
+            <div class="card-title"><span class="text-muted">Disponible</span></div>
+            <div class="card-title"><strong>{{ annonce.kilos_disponibles }} Kg</strong></div>
+            <router-link :to="`/annonces/${annonce.id}`" class="btn btn-sm btn-success rounded-4">Réserver</router-link>
+          </div>
         </div>
       </div>
     </div>
 
-
+    <div v-else-if="hasSearched && filteredAnnonces.length === 0" class="text-center">
+      <p>Aucune annonce trouvée pour ces critères de recherche.</p>
+    </div>
   </main>
-  <div class="container">
-    <FooterHome />
-  </div>
+  <FooterHome />
 </template>
 
-<style scoped>
 
-</style>

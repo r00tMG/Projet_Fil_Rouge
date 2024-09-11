@@ -83,7 +83,7 @@ const onSubmit = async () => {
 
 <template>
 
-  <div class="kotak_login">
+  <div class="kotak_login w-100">
     <p class="tulisan_login">Modifier un role</p>
     <img :src="logo" alt="Logo">
     <form @submit.prevent="onSubmit" >
@@ -93,7 +93,7 @@ const onSubmit = async () => {
         <p v-if="errors.name" class="text-danger">{{errors.name[0]}}</p>
       </div>
       <div class="form-group mb-3">
-        <label>Role(s): </label>
+        <label>Permission(s): </label>
         <select class="form-select" name="permission" v-model="selectPermissions" id="permission" multiple>
           <option v-for="permission in permissions" :key="permission.id" :value="permission.name">
             {{ permission.name }}
@@ -127,7 +127,6 @@ h1 {
 }
 
 .kotak_login {
-  width: 350px;
   background: #f2f2f2;
   /*tengah*/
   margin: 80px auto;

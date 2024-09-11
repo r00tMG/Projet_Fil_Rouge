@@ -13,6 +13,6 @@ class Annonce extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'gp_id');
-
     }
+
 }

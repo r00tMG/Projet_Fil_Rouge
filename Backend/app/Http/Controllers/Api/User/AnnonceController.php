@@ -37,11 +37,11 @@ class AnnonceController extends Controller
         //dd(Auth::id());
         $validated  = Validator::make($request->all(),[
             'kilos_disponibles' => ['required', 'integer'],
-            'date_depart' => ['required', 'date'],
-            'date_arrivee' => ['required', 'date'],
+            'date_depart' => ['required', 'date_format:Y-m-d\TH:i'],
+            'date_arrivee' => ['required', 'date_format:Y-m-d\TH:i', 'after:date_depart'],
             'description' => ['required', 'string'],
             'origin' => ['required', 'string'],
-            'destination' => ['required', 'string']
+            'destination' => ['required', 'string'],
 
         ]);
         logger('Validation', [$validated->fails()]);
@@ -59,8 +59,8 @@ class AnnonceController extends Controller
             'date_depart' => $request->date_depart,
             'date_arrivee' => $request->date_arrivee,
             'description' => $request->description,
-            'origin' => ['required', 'string'],
-            'destination' => ['required', 'string']
+            'origin' => $request->origin,
+            'destination' => $request->destination
         ]);
 
         return response()->json([
@@ -72,7 +72,6 @@ class AnnonceController extends Controller
 
     public function show($id)
     {
-
         $annonce = Annonce::findOrFail($id);
         return response()->json([
             'status' => Response::HTTP_OK,
@@ -85,10 +84,10 @@ class AnnonceController extends Controller
     {
         $validated  = Validator::make($request->all(),[
             'kilos_disponibles' => ['required', 'integer'],
-            'date_depart' => ['required', 'date'],
-            'date_arrivee' => ['required', 'date'],
+            'date_depart' => ['required', 'date_format:Y-m-d\TH:i'],
+            'date_arrivee' => ['required', 'date_format:Y-m-d\TH:i', 'after:date_depart'],
             'description' => ['required', 'string'],
-             'origin' => ['required', 'string'],
+            'origin' => ['required', 'string'],
             'destination' => ['required', 'string']
         ]);
         if ($validated->fails())

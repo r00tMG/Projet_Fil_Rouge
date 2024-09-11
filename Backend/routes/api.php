@@ -40,6 +40,9 @@ Route::group(['middleware' => ['auth:sanctum']], function (){
 
     Route::get('/messages/{id}', [MessageController::class, 'index']);
     Route::post('/messages', [MessageController::class, 'store']);
+
+    Route::apiResource('demandes',\App\Http\Controllers\Api\User\DemandeController::class);
+
 });
 
 

@@ -42,7 +42,7 @@ export default {
           alert('Authentification échouée')
         }
       }catch (e) {
-        console.log('Erreur: Connexion échoué')
+        alert('Ce compte n\'existe pas, veuillez vous enregistrez')
       }
 
     }

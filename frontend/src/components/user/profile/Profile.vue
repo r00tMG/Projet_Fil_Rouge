@@ -94,7 +94,6 @@ export default {
           </div>
         </div>
       </div>
-{{}}
       <div class="sidenav-url " >
         <div class="url">
           <router-link to="/profile/index" :class="{ active: $route.path === `/profile/index` }">Profile</router-link>
@@ -110,7 +109,7 @@ export default {
         </div>
       </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9 w-80 m-auto">
       <router-view />
     </div>
   </div>

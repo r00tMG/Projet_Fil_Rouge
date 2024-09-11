@@ -12,7 +12,6 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-
         $annonces = Annonce::orderBy('created_at', 'DESC')->limit(6)->get();
         return response()->json([
             'status' => Response::HTTP_OK,

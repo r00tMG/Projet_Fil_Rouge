@@ -92,7 +92,7 @@ export default {
 
 <template>
 <!--  <Navbar />-->
-  <div class="kotak_login">
+  <div class="kotak_login w-100">
     <p class="tulisan_login">Modifier votre profile Utilisateur</p>
 
     <img :src="logo" alt="Logo">
@@ -102,27 +102,30 @@ export default {
         <input type="text" v-model="user_id" name="user_id" class="form_login" placeholder="User..">
         <p v-if="errors.user_id" class="text-danger">{{ errors.user_id[0] }}</p>
       </div>
-      <div class="form-group mb-3">
-        <label>Address</label>
-        <input type="text" v-model="address" name="address" class="form_login" placeholder="Address..">
-        <p v-if="errors.address" class="text-danger">{{ errors.address[0] }}</p>
-      </div>
-      <div class="form-group mb-3">
-        <label>Hobbies</label>
-        <input type="text" v-model="hobbies" name="hobbies" class="form_login" placeholder="Hobbies..">
-        <p v-if="errors.hobbies" class="text-danger">{{ errors.hobbies[0] }}</p>
-      </div>
-      <div class="form-group mb-3">
-        <label>Job</label>
-        <input type="text" v-model="job"	name="job" class="form_login" placeholder="Job ..">
-        <p v-if="errors.job" class="text-danger">{{ errors.job[0] }}</p>
-      </div>
-      <div class="form-group mb-3">
-        <div class="form-group mb-3">
-          <label>Skill</label>
-          <input type="text" v-model="skill" name="skill" class="form_login" placeholder="Skill..">
-          <p v-if="errors.skill" class="text-danger">{{errors.skill[0]}}</p>
+      <div class="row">
+        <div class="form-group col-md-6 mb-3">
+          <label>Address</label>
+          <input type="text" v-model="address" name="address" class="form_login" placeholder="Address..">
+          <p v-if="errors.address" class="text-danger">{{ errors.address[0] }}</p>
         </div>
+        <div class="form-group col-md-6 mb-3">
+          <label>Hobbies</label>
+          <input type="text" v-model="hobbies" name="hobbies" class="form_login" placeholder="Hobbies..">
+          <p v-if="errors.hobbies" class="text-danger">{{ errors.hobbies[0] }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6 mb-3">
+          <label>Job</label>
+          <input type="text" v-model="job"	name="job" class="form_login" placeholder="Job ..">
+          <p v-if="errors.job" class="text-danger">{{ errors.job[0] }}</p>
+        </div>
+        <div class="form-group col-md-6 mb-3">
+            <label>Skill</label>
+            <input type="text" v-model="skill" name="skill" class="form_login" placeholder="Skill..">
+            <p v-if="errors.skill" class="text-danger">{{errors.skill[0]}}</p>
+        </div>
+
       </div>
 
       <input type="submit" class="tombol_login" value="Update">
@@ -150,7 +153,6 @@ h1 {
 }
 
 .kotak_login {
-  width: 350px;
   background: #f2f2f2;
   /*tengah*/
   margin: 80px auto;

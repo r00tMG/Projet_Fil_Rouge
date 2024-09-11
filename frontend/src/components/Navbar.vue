@@ -15,11 +15,11 @@ export default {
 </script>
 
 <template>
-  <div class="container w-75 m-auto">
+  <div class="container  m-auto">
     <nav class="navbar navbar-expand-lg bg-body-light " data-bs-theme="dark">
       <div class="container-fluid">
         <router-link to="/" class="navbar-brand text-dark" :class="{ active: $route.path === `/` }" >
-          <img :src="logo" alt="Logo" width="100px">MonGP</router-link>
+          <img :src="logo" alt="Logo" width="80px"><span class="text-success">MonGP</span></router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

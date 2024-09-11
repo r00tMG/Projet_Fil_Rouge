@@ -1,3 +1,4 @@
+
 .corde{
 
     box-sizing: border-box;
@@ -18,5 +19,9 @@
 }
 .width{
     width: 50px;
+}
+
+.label{
+    left:9px !important;
 }
 

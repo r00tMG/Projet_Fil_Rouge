@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('gp_id')->constrained('users');
             $table->integer('kilos_disponibles');
-            $table->date('date_depart');
-            $table->date('date_arrivee');
+            $table->dateTime('date_depart');
+            $table->dateTime('date_arrivee');
             $table->text('description');
             $table->timestamps();
         });

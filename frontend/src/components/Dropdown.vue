@@ -36,7 +36,7 @@ export default {
 <template>
   <label class="dropdown">
     <div class="dd-button bg-transparent" v-if="data && data.user">
-      <img class="rounded-circle" :src="data.storage+'/'+data.user.photo_profile" width="30px" alt="Photo Profile" >
+      <img class="rounded-circle" :src="data.storage+'/'+data.user.photo_profile" width="40px" height="40px" alt="Photo Profile" >
       {{data.user.name}}
     </div>
     <div class="dd-button gap-1" v-else>
@@ -48,15 +48,14 @@ export default {
     </div>
 
     <input type="checkbox" class="dd-input" id="test">
-
     <ul class="dd-menu" v-if="data && data.token">
       <div class="d-flex flex-column align-items-center border-bottom px-5 py-3">
         <div class="mb-3">
-          <img class="wd-80 ht-80 rounded-circle" src="https://via.placeholder.com/80x80" alt="">
+          <img class="rounded-circle" :src="data.storage+'/'+data.user.photo_profile" width="50px" height="50px" alt="">
         </div>
         <div class="text-center">
-          <p class="tx-16 fw-bolder">GP</p>
-          <p class="tx-12 text-dark">gp@gmail.com</p>
+          <p class="tx-16 fw-bolder">{{data.user.name}}</p>
+          <p class="tx-12 text-dark">{{data.user.email}}</p>
         </div>
         <li class="dropdown-item py-2">
           <router-link to="/profile" href="#" class="text-body ms-0">
