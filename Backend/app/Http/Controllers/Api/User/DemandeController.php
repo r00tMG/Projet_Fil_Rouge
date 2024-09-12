@@ -47,6 +47,7 @@ class DemandeController extends Controller
         $demande->annonce_id = $request->annonce_id;
         $demande->user_id = auth()->id();
         $demande->kilos_demandes = $request->kilos_demandes;
+        $demande->prix_de_la_demande = $request->kilos_demandes * $annonce->prix_du_kilo;
         $demande->statut = 'en_attente';
         $demande->save();
 

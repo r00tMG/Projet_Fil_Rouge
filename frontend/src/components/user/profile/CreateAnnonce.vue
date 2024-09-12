@@ -9,8 +9,7 @@ const date_arrivee = ref('')
 const origin = ref('')
 const destination = ref('')
 const description = ref('')
-const heure_depart = ref('')
-const heure_arrivee = ref('')
+const prix_du_kilo = ref('')
 const annonce = ref([])
 const errors = ref({})
 const router = useRouter()
@@ -24,7 +23,8 @@ const onSubmit = async () => {
       date_arrivee:date_arrivee.value,
       description:description.value,
       origin:origin.value,
-      destination:destination.value
+      destination:destination.value,
+      prix_du_kilo:prix_du_kilo.value
     } ,{
       headers: {
         'Content-Type':'application/json',
@@ -57,10 +57,17 @@ const onSubmit = async () => {
       <p class="tulisan_login">Publier une annonce</p>
         <img :src="logo" alt="Logo">
       <form @submit.prevent="onSubmit">
-        <div class="form-group  mb-3">
-          <label>Kilo(s) Disponible(s)</label>
-          <input type="number" v-model="kilos_disponibles" name="kilos_disponibles" class="form_login " placeholder="Kilo(s) Disponible(s)...">
-          <p v-if="errors.kilos_disponibles" class="text-danger">{{ errors.kilos_disponibles[0] }}</p>
+        <div class="row">
+          <div class="form-group col-md-6 mb-3">
+            <label>Kilo(s) Disponible(s)</label>
+            <input type="number" v-model="kilos_disponibles" name="kilos_disponibles" class="form_login " placeholder="Kilo(s) Disponible(s)...">
+            <p v-if="errors.kilos_disponibles" class="text-danger">{{ errors.kilos_disponibles[0] }}</p>
+          </div>
+          <div class="form-group col-md-6 mb-3">
+            <label>Prix du Kilo(DH)</label>
+            <input type="number" v-model="prix_du_kilo" name="prix_du_kilo" class="form_login " placeholder="Prix du Kilo(DH)...">
+            <p v-if="errors.prix_du_kilo" class="text-danger">{{ errors.prix_du_kilo[0] }}</p>
+          </div>
         </div>
         <div class="row">
           <div class="form-group col-md-6 mb-3">

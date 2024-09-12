@@ -42,7 +42,7 @@ class AnnonceController extends Controller
             'description' => ['required', 'string'],
             'origin' => ['required', 'string'],
             'destination' => ['required', 'string'],
-
+            'prix_du_kilo' => ['required', 'integer']
         ]);
         logger('Validation', [$validated->fails()]);
         if ($validated->fails())
@@ -60,7 +60,8 @@ class AnnonceController extends Controller
             'date_arrivee' => $request->date_arrivee,
             'description' => $request->description,
             'origin' => $request->origin,
-            'destination' => $request->destination
+            'destination' => $request->destination,
+            'prix_du_kilo' => $request->prix_du_kilo
         ]);
 
         return response()->json([
@@ -88,7 +89,8 @@ class AnnonceController extends Controller
             'date_arrivee' => ['required', 'date_format:Y-m-d\TH:i', 'after:date_depart'],
             'description' => ['required', 'string'],
             'origin' => ['required', 'string'],
-            'destination' => ['required', 'string']
+            'destination' => ['required', 'string'],
+            'prix_du_kilo' => ['required', 'integer']
         ]);
         if ($validated->fails())
         {
@@ -107,6 +109,7 @@ class AnnonceController extends Controller
             'description' => $request->description,
             'origin' => $request->origin,
             'destination' => $request->destination,
+            'prix_du_kilo' => $request->prix_du_kilo
         ]);
         return response()->json([
             'status' => Response::HTTP_CREATED,

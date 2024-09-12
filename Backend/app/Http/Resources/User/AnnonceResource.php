@@ -25,6 +25,7 @@ class AnnonceResource extends JsonResource
             'origin' => $this->resource->origin,
             'destination' => $this->resource->destination,
             'created_at' => $this->resource->created_at,
+            'prix_du_kilo' => $this->resource->prix_du_kilo,
             'date_now' => Carbon::now(),
             'user' => new UserResource(
                 $this->resource->user

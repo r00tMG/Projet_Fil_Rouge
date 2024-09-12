@@ -24,7 +24,8 @@ class DemandeResource extends JsonResource
                 $this->resource->user
             ),
             'status' => $this->resource->statut,
-            'kilos_demandes' => $this->resource->kilos_demandes
+            'kilos_demandes' => $this->resource->kilos_demandes,
+            'prix_de_la_demande' => $this->resource->prix_de_la_demande
         ];
     }
 }

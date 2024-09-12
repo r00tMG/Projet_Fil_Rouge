@@ -1,19 +1,19 @@
 <script setup>
 import FooterHome from "@/components/user/home/FooterHome.vue";
-import { computed, ref } from "vue";
+import {computed, onMounted, ref} from "vue";
 import axios from "@/axios.js";
-import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import Multiselect from '@vueform/multiselect';
+import '@vueform/multiselect/themes/default.css';
 const annonces = ref([]);
 const searchDepart = ref('');
 const searchArrivee = ref('');
 const searchOrigin = ref('');
 const searchDestination = ref('');
-const hasSearched = ref(false); // Indicateur pour savoir si une recherche a été effectuée
 
-// Fonction pour effectuer une recherche
+const hasSearched = ref(false);
 const searchAnnonces = async () => {
-  if (searchDepart.value && searchArrivee.value && searchOrigin.value && searchDestination.value) {
+  if (searchDepart.value || searchArrivee.value || searchOrigin.value || searchDestination.value) {
     const r = await axios.get('/annonce_on_home', {
       params: {
         date_depart: searchDepart.value,
@@ -41,6 +41,14 @@ const filteredAnnonces = computed(() => {
     return [];
   }
 });
+const options = ref([])
+onMounted(async () => {
+  const r = await fetch('https://restcountries.com/v3.1/independent?status=true&fields=capital')
+  const capitals = await r.json()
+   options.value = capitals.map((item) =>{
+    return item.capital[0]
+  })
+})
 </script>
 
 <template>
@@ -57,24 +65,44 @@ const filteredAnnonces = computed(() => {
           </h3>
         </div>
         <div class="container">
-          <div class="row  m-auto px-4 py-5 background rounded ">
+          <div class="row m-auto px-4 py-5 background rounded-5 ">
             <div class="row">
               <div class="col-md-10 row">
-                <div class=" col-md-3">
-                  <label for="floatingInputGroup1">Depart le</label>
-                  <input type="date" v-model="searchDepart" class="form-control border border-success p-3" id="floatingInputGroup1" placeholder="">
+                <div class="col-md-3">
+                  <label for="floatingInputGroup1">Départ le</label>
+                  <input type="date" v-model="searchDepart" class="form-control rounded-4 border border-success p-3" id="floatingInputGroup1" placeholder="">
                 </div>
-                <div class=" col-md-3">
+                <div class="col-md-3">
                   <label for="floatingInputGroup1">Arrivée le</label>
-                  <input type="date" v-model="searchArrivee" class="form-control border border-success p-3" id="floatingInputGroup1" placeholder="">
+                  <input type="date" v-model="searchArrivee" class="form-control rounded-4 border border-success p-3" id="floatingInputGroup1" placeholder="">
                 </div>
-                <div class=" col-md-3">
+                <div class="col-md-3">
                   <label class="label">Origine</label>
-                  <input type="text" v-model="searchOrigin" class="form-control border border-success p-3" placeholder="Origine">
+                  <Multiselect
+                      class="form-control rounded-4 border border-success p-2"
+                      v-model="searchOrigin"
+                      v-if="options"
+                      :options="options"
+                      placeholder="Choisissez un origine"
+                      searchable
+                      close-on-select
+                      :clear-on-select="true"
+                      :multiple="false"
+                      :allow-empty="true" />
                 </div>
                 <div class=" col-md-3">
                   <label class="label">Destination</label>
-                  <input type="text" v-model="searchDestination" class="form-control border border-success p-3" placeholder="Destination">
+                  <Multiselect
+                      class="form-control rounded-4 border border-success p-2"
+                      v-model="searchDestination"
+                      v-if="options"
+                      :options="options"
+                      placeholder="Choisissez une destination"
+                      searchable
+                      close-on-select
+                      :clear-on-select="true"
+                      :multiple="false"
+                      :allow-empty="true" />
                 </div>
               </div>
               <div class="col-md-2">
@@ -85,7 +113,6 @@ const filteredAnnonces = computed(() => {
                   Trouver un GP</button>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -106,21 +133,21 @@ const filteredAnnonces = computed(() => {
           </div>
         </div>
       </div>
-      <div class="card mb-3 w-50 m-5 m-auto border-success rounded-1" v-for="annonce in filteredAnnonces" :key="annonce.id">
-        <div class="card-header bg-white border-success">
-          <div class="d-flex justify-content-between align-items">
-            <div>
-              <img class="rounded-circle" :src="`${annonce.user.storage}/${annonce.user.photo_profile}`" width="40px" height="40px" alt="Photo Profile">
-              {{ annonce.user.name }}
-            </div>
-            <div>
-              <p class="text-muted mt-1">Publiée il y a {{ Math.abs(new Date(annonce.date_now).getHours() - new Date(annonce.created_at).getHours()) }}h</p>
+      <div class="card mb-3 w-50 m-5 m-auto border-success rounded" v-for="annonce in filteredAnnonces" :key="annonce.id">
+          <div class="card-header bg-white border-success">
+            <div class="d-flex justify-content-between align-items">
+              <div>
+                <img class="rounded-circle" :src="`${annonce.user.storage}/${annonce.user.photo_profile}`" width="40px" height="40px" alt="Photo Profile">
+                {{ annonce.user.name }}
+              </div>
+              <div>
+                <p class="text-muted mt-1">Publiée il y a {{ Math.abs(new Date(annonce.date_now).getHours() - new Date(annonce.created_at).getHours()) }}h</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-10 border">
-            <div class="card-body">
+          <div class="row">
+          <div class="col-md-10">
+            <div class="card-body border">
               <div class="row p-5">
                 <div class="col-md-3">
                   <h4 class="card-title">Départ</h4>
@@ -152,8 +179,7 @@ const filteredAnnonces = computed(() => {
         </div>
       </div>
     </div>
-
-    <div v-else-if="hasSearched && filteredAnnonces.length === 0" class="text-center">
+    <div v-else-if="hasSearched && filteredAnnonces.length === 0" class="text-center bg-danger p-5 w-50 m-auto text-light">
       <p>Aucune annonce trouvée pour ces critères de recherche.</p>
     </div>
   </main>

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueform/multiselect": "^2.6.9",
     "@vuepic/vue-datepicker": "^9.0.3",
     "axios": "^1.7.4",
     "bootstrap-icons": "^1.11.3",
