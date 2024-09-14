@@ -71,11 +71,10 @@ const onDemander = async () => {
           <h6 class="card-subtitle mb-2 text-body-secondary">
           <span class="underline text-light">Prix: ${maDemande.prix_de_la_demande} DH</span>
           </h6>
-
         </div>
       </div>
       <div class="container text-center mt-5">
-      <router-link to="/demande/${maDemande.id}" class="btn rounded-5 px-5" style="background-color:darkgreen;color: white" type="submit">Continuer</router-link>
+      <a href="/payment/${maDemande.id}" class="btn rounded-5 px-5" style="background-color:darkgreen;color: white"  >Continuer</a>
 </div>
     `;
         panierElement.append(content);

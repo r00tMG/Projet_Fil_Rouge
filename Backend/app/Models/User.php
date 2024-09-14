@@ -53,6 +53,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Annonce::class, 'gp_id');
     }
-
+    /**
+     * Relation avec les commandes passées par l'utilisateur
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 
 }

@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\Api\Admin\RoleController;
 use App\Http\Controllers\Api\Admin\UserController;
+use App\Http\Controllers\Api\Paiement\WebhookController;
 use App\Http\Controllers\Api\User\MessageController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,9 +43,17 @@ Route::group(['middleware' => ['auth:sanctum']], function (){
 
     Route::apiResource('demandes',\App\Http\Controllers\Api\User\DemandeController::class);
 
+    Route::post('/payment-intent', [\App\Http\Controllers\Api\Paiement\PaiementController::class, 'createPaymentIntent']);
+    Route::post('create/orders',[\App\Http\Controllers\Api\Paiement\PaiementController::class,'storeOrder']);
+
+    Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
+    Route::post('create-checkout-session', [\App\Http\Controllers\Api\Paiment\StripeController::class, 'createCheckoutSession']);
+
+
 });
-
-
+Route::post('webhook/payment/succeeded',function (\Illuminate\Http\Request $request){
+return 'ok';
+} );
 /*Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });*/

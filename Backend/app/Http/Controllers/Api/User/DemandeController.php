@@ -22,6 +22,11 @@ class DemandeController extends Controller
         return response()->json($demandes);
     }
 
+    public function show(string $id)
+    {
+        $demande = Demande::find($id);
+        return \response()->json(new DemandeResource($demande));
+    }
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[

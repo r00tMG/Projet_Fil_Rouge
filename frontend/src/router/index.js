@@ -17,7 +17,8 @@ import TableProfile from "@/components/user/profile/TableProfile.vue";
 import CreateAnnonce from "@/components/user/profile/CreateAnnonce.vue";
 import TableAnnonce from "@/components/user/profile/TableAnnonce.vue";
 import Demande from "@/components/user/home/Demande.vue";
-import FormPaiement from "@/components/user/home/FormPaiement.vue";
+import FormPayment from "@/components/user/home/FormPayment.vue";
+import Success from "@/components/user/home/Success.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -88,11 +89,17 @@ const router = createRouter({
           meta: { requiresAuth: true }
         },
         {
-          path: '/demande/:id',
-          name: 'form.paiement',
-          component: FormPaiement,
+          path: '/payment/:id',
+          name: 'payment',
+          component: FormPayment,
           meta: { requiresAuth: true }
         },
+        {
+          path: '/payment/success',
+          name: 'payment.success',
+          component: Success,
+          meta: { requiresAuth: true }
+        }
       ]
     },
     {
