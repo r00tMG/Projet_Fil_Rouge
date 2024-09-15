@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth:sanctum']], function (){
     Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
     Route::post('create-checkout-session', [\App\Http\Controllers\Api\Paiment\StripeController::class, 'createCheckoutSession']);
 
+    Route::get('/invoice/{orderId}', [\App\Http\Controllers\Api\Paiement\PaiementController::class, 'generateInvoice']);
 
 });
 Route::post('webhook/payment/succeeded',function (\Illuminate\Http\Request $request){

@@ -94,7 +94,18 @@ class WebhookController extends Controller
     {
         // Logique lorsque le paiement de la facture réussit
         Log::info('Paiement de facture réussi : ' . $invoice->id);
-        // Mettre à jour l'abonnement, etc.
+        $order = Order::where('payment_id', $invoice['data']['object']['id'])->firstOrFail();
+
+        // Mettre à jour le statut de la commande
+        $order->update([
+            'payment_status' => 'succeeded',
+            'status' => 'completed',
+        ]);
+
+        // Générer et envoyer la facture par email
+        $invoiceUrl = route('invoice.download', ['id' => $order->id]);
+
+        Mail::to($order->user->email)->send(new InvoiceMail($order, $invoiceUrl));
     }
 
     protected function handleInvoicePaymentFailure($invoice)
