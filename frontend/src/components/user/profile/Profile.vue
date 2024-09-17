@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar.vue'
 import ProfileContent from "@/components/user/profile/TableProfile.vue";
 import FooterHome from "@/components/user/home/FooterHome.vue";
 import router from "@/router/index.js";
+import logo from '@/assets/logo.png'
 
 export default {
   name: 'Profile',
@@ -45,7 +46,8 @@ export default {
     return{
       profile,
       roles,
-      handleLogout
+      handleLogout,
+      logo
     }
   }
 }
@@ -54,10 +56,12 @@ export default {
 
 <template >
   <!-- Navbar top -->
-  <div v-if="roles" v-for="role in roles">
-    <nav class="navbar bg-body-light navbar-top">
+  <div v-if="roles" v-for="role in roles" class="">
+    <nav class="navbar bg-body-light navbar-top ">
       <div class="container-fluid">
-        <router-link to="/" class="navbar-brand title text-center fs-1">Home</router-link>
+        <router-link to="/" class="navbar-brand title  fs-3">
+          <img :src="logo" alt="Logo" width="70" height="70">
+          MonGP</router-link>
           <ul class="d-flex">
             <li>
               <a href="#message">
@@ -116,7 +120,7 @@ export default {
 </div>
 
 <!--           <h2>SOCIAL MEDIA</h2>-->
-                     <div class="card">
+                     <div class="card fixed-bottom">
                        <div class="card-body">
                          <i class="fa fa-pen fa-xs edit"></i>
                          <div class="social-media">

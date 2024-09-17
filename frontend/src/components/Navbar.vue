@@ -25,11 +25,9 @@ export default {
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
+<!--            <li class="nav-item">
               <router-link to="/"  class="nav-link text-dark" :class="{ active: $route.path === `/` }">Home</router-link>
-            </li>
-
-
+            </li>-->
           </ul>
           <Dropdown/>
         </div>

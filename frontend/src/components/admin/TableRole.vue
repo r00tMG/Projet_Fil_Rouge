@@ -1,9 +1,9 @@
 <script setup>
 import {onMounted, ref} from "vue";
-import axios from "axios";
+import axios from "@/axios.js";
 const roles = ref([])
   onMounted(async () => {
-    const r = await axios.get('http://backend.test/api/roles',{
+    const r = await axios.get('/roles',{
       headers:{
         'Accept':'application/json',
         'Authorization':`Bearer ${localStorage.getItem('token')}`
@@ -33,11 +33,11 @@ const onDelete = async (id) =>{
   <div class="mt-5">
     <div class="d-flex justify-content-between my-2">
       <h4>Liste des roles</h4>
-      <router-link to="/roles" class="btn btn-sm btn-dark ">Create</router-link>
+      <router-link to="/roles" class="btn btn-sm btn-success ">Create</router-link>
     </div>
     <div class="table-responsive">
       <table class="table table-bordered  table-striped">
-        <thead class="table-dark">
+        <thead class="table-success">
         <tr class="negrita">
           <th colspan="2">Name</th>
           <th colspan="6">Permissions</th>

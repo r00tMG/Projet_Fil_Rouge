@@ -19,11 +19,11 @@ onMounted(async () => {
   <div class="mt-5">
       <div class="d-flex justify-content-between my-2">
         <h4>Liste des annonces</h4>
-        <router-link to="/annonces/create" class="btn btn-sm btn-dark ">Create</router-link>
+        <router-link to="/annonces/create" class="btn btn-sm btn-success ">Create</router-link>
       </div>
-    <div class="table-responsive">
-      <table class="table table-bordered  table-striped">
-        <thead class="table-dark">
+    <div class=" table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead class="table-success">
           <tr>
             <th class="text-center px-2">Auteur</th>
             <th class="text-center px-2">Disponibles(Kg)</th>

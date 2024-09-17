@@ -82,8 +82,8 @@ const onSubmit = async () => {
 </script>
 
 <template>
-
-  <div class="kotak_login w-100">
+<div class="container rounded-5 border border-success shadow mt-5">
+  <div class="p-5 w-100">
     <p class="tulisan_login">Modifier un role</p>
     <img :src="logo" alt="Logo">
     <form @submit.prevent="onSubmit" >
@@ -101,12 +101,10 @@ const onSubmit = async () => {
         </select>
                 <p v-if="errors.permissions" class="text-danger">{{errors.permissions[0]}}</p>
       </div>
-
       <input type="submit" class="tombol_login" value="Update">
     </form>
-
   </div>
-
+</div>
 </template>
 
 <style scoped>

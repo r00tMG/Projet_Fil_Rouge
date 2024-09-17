@@ -28,12 +28,6 @@ import logo from '@/assets/logo.png';
         }
       }
       console.log('Type of photo_profile:', typeof photo_profile.value);*/
-      const onProfile = (e) => {
-        photo_profile.value = e.target.files[0]
-        console.log('Selected file:', photo_profile.value);
-      }
-
-
       onMounted(async () => {
         const r = await axios.get(`/users/${route.params.id}`,{
           headers: {
@@ -62,9 +56,11 @@ import logo from '@/assets/logo.png';
         })
         getRoles.value = await r.data
         //console.log(getRoles.value)
-
       })
-
+      const onProfile = (e) => {
+        photo_profile.value = e.target.files[0]
+        console.log('Selected file:', photo_profile.value);
+      }
       const onUpdate = async () => {
         const formData = new FormData()
         formData.append('name', name.value)
@@ -74,7 +70,6 @@ import logo from '@/assets/logo.png';
         selectRoles.value.forEach(role => {
           formData.append('roles', role);
         });
-
         if(photo_profile.value){
           formData.append('photo_profile', photo_profile.value)
           console.log(formData['photo_profile'])
@@ -84,10 +79,9 @@ import logo from '@/assets/logo.png';
         }
         try{
           //formData.append('_method', 'PUT');
-          const response = await axios.patch(`/users/${route.params.id}`,formData,{
-            //method: 'PUT',
+          const response = await axios.put(`/users/${route.params.id}`,formData,{
             headers: {
-              'Content-Type':"application/json",
+              'Accept':'application/json',
               'Authorization':`Bearer ${token}`
             },
           })
@@ -133,7 +127,8 @@ import logo from '@/assets/logo.png';
 </script>
 
 <template>
-  <div class="kotak_login w-100">
+  <div class="container mt-5  shadow rounded-5 border border-success">
+    <div class="p-5 w-100">
     <p class="tulisan_login">Modifier un Utilisateur</p>
 
     <img :src="logo" alt="Logo">
@@ -155,7 +150,6 @@ import logo from '@/assets/logo.png';
           <label>Password</label>
           <input type="password" v-model="password" name="password" class="form_login" placeholder="Password ..">
           <p v-if="errors.password" class="text-danger">{{errors.password[0]}}</p>
-
         </div>
         <div class="form-group col-md-6 mb-3">
           <label>Password Confirmation</label>
@@ -166,7 +160,7 @@ import logo from '@/assets/logo.png';
       <div class="row">
         <div class="form-group col-md-6 mb-3">
           <label>Photo Profile</label>
-          <input type="file"  @change="onProfile"	name="photo_profile" class="form-control form_login" >
+          <input type="file" @change="onProfile"	name="photo_profile" class="form-control form_login" >
           <div v-if="errors.photo_profile" class="text-danger">{{ errors.photo_profile[0] }}</div>
         </div>
         <div class="form-group col-md-6 mb-3">
@@ -179,9 +173,8 @@ import logo from '@/assets/logo.png';
       </div>
       <input type="submit" class="tombol_login" value="Update">
     </form>
-
   </div>
-
+  </div>
 </template>
 
 <style scoped>

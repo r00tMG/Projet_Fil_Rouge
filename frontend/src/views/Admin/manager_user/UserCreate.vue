@@ -48,6 +48,9 @@ export default {
         formData.append('photo_profile', photo_profile.value)
         console.log(photo_profile.value)
       }
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+      }
       try{
 
         const response = await axios.post('/users',formData,{
@@ -94,10 +97,9 @@ export default {
 </script>
 
 <template>
-
-  <div class="kotak_login w-100">
+<div class="container mt-5  shadow rounded-5 border border-success">
+  <div class="p-5 w-100">
     <p class="tulisan_login">Créer un utilisateur</p>
-
     <img :src="logo" alt="Logo">
     <form @submit.prevent="onRegister" enctype="multipart/form-data">
       <div class="row">
@@ -141,8 +143,9 @@ export default {
       </div>
       <input type="submit" class="tombol_login" value="Register">
     </form>
-
   </div>
+</div>
+
 
 
 </template>

@@ -56,8 +56,8 @@ fetchPermissions();
 </script>
 
 <template>
-  <div class="kotak_login">
-    <p class="tulisan_login">Modifier un role</p>
+  <div class="container border border-success mt-5 rounded-5 shadow p-5">
+    <p class="tulisan_login">Créer un role</p>
     <img :src="logo" alt="Logo">
     <form @submit.prevent="submitForm" >
       <div class="form-group mb-3">
@@ -83,7 +83,7 @@ fetchPermissions();
         </div>
       </div>
 
-      <input type="submit" class="tombol_login" value="Update">
+      <input type="submit" class="tombol_login" value="Create">
     </form>
 
   </div>

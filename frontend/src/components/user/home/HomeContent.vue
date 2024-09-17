@@ -53,7 +53,7 @@ onMounted(async () => {
 
 <template>
   <main>
-    <div class="corde rounded-circle"></div>
+    <div class="container corde rounded-circle"></div>
     <div class="container-fluid">
       <div class="container m-5 p-5">
         <div class="w-75 m-auto m-5 p-5 text-center">
@@ -128,7 +128,7 @@ onMounted(async () => {
             </svg>
           </div>
           <div class="">
-            <h4 class="hover:underline mt-2">Liste des annonces</h4>
+            <h4 class="hover:underline mt-2">Liste des annonces disponibles</h4>
             <div class="h4 pb-2 width mb-4 border-bottom border-success"></div>
           </div>
         </div>
@@ -179,7 +179,7 @@ onMounted(async () => {
         </div>
       </div>
     </div>
-    <div v-else-if="hasSearched && filteredAnnonces.length === 0" class="text-center bg-danger p-5 w-50 m-auto text-light">
+    <div v-else-if="hasSearched && filteredAnnonces.length === 0" class="text-center bg-danger rounded-5 px-5 py-3 w-50 m-auto text-light">
       <p>Aucune annonce trouvée pour ces critères de recherche.</p>
     </div>
   </main>

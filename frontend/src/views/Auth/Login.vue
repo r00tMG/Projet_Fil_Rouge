@@ -1,8 +1,8 @@
 <script>
-import { onMounted, ref } from 'vue'
-import axios from '@/axios.js'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import logo from '@/assets/logo.png';
+import axios from "@/axios.js";
 
 
 export default {
@@ -11,10 +11,10 @@ export default {
     const email = ref('')
     const password = ref('')
     const router = useRouter()
-
+    const errors = ref({})
     const onLogin = async () => {
       try{
-        const response = await axios.post('/login', {
+        const response = await axios.post('http://backend.test/api/login', {
             email: email.value,
             password: password.value
         },{
@@ -29,7 +29,7 @@ export default {
           //localStorage.setItem('role',JSON.stringify(data.user.role))
           localStorage.setItem('data', JSON.stringify(data))
           await router.push('/users/index')
-          console.log(data.user.role.length)
+          //console.log(data.user.role.length)
         }else if(data.token && ((data.user.role[0].name === "Client")||(data.user.role[0].name === "GP"))){
          console.log(data.user.role.length)
           localStorage.setItem('token', data.token)
@@ -39,10 +39,20 @@ export default {
           //await router.push('/home')
          await checkUserProfile(data.token)
         }else {
-          alert('Authentification échouée')
+         Swal.fire({
+           title:'failed',
+           text:'Authentification échouée',
+           icon: 'failed',
+           confirmButtonText:'Réessayez'
+         })
         }
-      }catch (e) {
-        alert('Ce compte n\'existe pas, veuillez vous enregistrez')
+      } catch (error) {
+        if (error.response && error.response.status === 400) {
+          errors.value = error.response.data.errors;
+          console.error("Validation errors:", errors.value);
+        } else {
+          console.error("Error: La requête a échoué", error);
+        }
       }
 
     }
@@ -75,22 +85,31 @@ export default {
 </script>
 
 <template>
+  <div class="container">
+    <div class="row border rounded-1 m-5 shadow border-success">
+      <div class="col-md-6  bg-success ">
+      <h1 class="text-light mt-5 text-center">Login</h1>
+      </div>
+      <div class="col-md-6">
+        <div class="p-4 w-100">
+          <img :src="logo" alt="Logo">
+          <form @submit.prevent="onLogin">
+            <label>Email</label>
+            <input type="text" v-model="email" name="email" class="form_login" placeholder="Email..">
+            <p class="text-center" v-if="errors.email">{{errors.email[0]}}</p>
+            <label>Password</label>
+            <input type="password" v-model="password"	name="password" class="form_login" placeholder="Password ..">
 
-    <div class="kotak_login">
-      <p class="tulisan_login">Login</p>
-      <img :src="logo" alt="Logo">
-        <form @submit.prevent="onLogin">
-          <label>Username</label>
-          <input type="text" v-model="email" name="email" class="form_login" placeholder="Username..">
+            <input type="submit" class="tombol_login" value="LOGIN">
+            <p>Si vous n'êtes pas inscrite veuillez<router-link to="/register"> cliquer ici</router-link></p>
+          </form>
 
-          <label>Password</label>
-          <input type="password" v-model="password"	name="password" class="form_login" placeholder="Password ..">
-
-          <input type="submit" class="tombol_login" value="LOGIN">
-          <p>Si vous n'êtes pas inscrite veuillez<router-link to="/register"> cliquer ici</router-link></p>
-        </form>
-
+        </div>
+      </div>
     </div>
+  </div>
+
+
 
 
 </template>
@@ -113,7 +132,6 @@ h1 {
 }
 
 .kotak_login {
-  width: 350px;
   background: #f2f2f2;
   /*tengah*/
   margin: 80px auto;

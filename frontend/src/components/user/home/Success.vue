@@ -1,6 +1,7 @@
 <script setup>
 import axios from "@/axios.js";
 import {ref} from "vue";
+import Swal from "sweetalert2";
 const order  = JSON.parse(localStorage.getItem('order'))
 const orderId = order.order.id
 const invoice_url = ref('')
@@ -12,6 +13,13 @@ const onUploads = async () => {
   })
    invoice_url.value = await r.data.invoice_url
   //console.log(invoice_url.invoice_url)
+  Swal.fire({
+    title: 'Succès!',
+    text: 'Votre action a été effectuée.',
+    icon: 'success',
+    confirmButtonText:'<a :href="">Why do I have this issue?</a>',
+
+  });
 }
 </script>
 

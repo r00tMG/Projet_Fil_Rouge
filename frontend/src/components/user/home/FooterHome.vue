@@ -12,8 +12,8 @@
       <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.3/getting-started/introduction/">getting started guide</a>.</p>
     </div>
   </footer>-->
-  <footer class="py-5">
-    <div class="row">
+  <footer class="">
+<!--    <div class="row">
       <div class="col-6 col-md-2 mb-3">
         <h5>Section</h5>
         <ul class="nav flex-column">
@@ -58,16 +58,12 @@
           </div>
         </form>
       </div>
-    </div>
+    </div>-->
 
-    <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-      <p>&copy; 2024 Company, Inc. All rights reserved.</p>
-      <ul class="list-unstyled d-flex">
-        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
-        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
-        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
-      </ul>
-    </div>
+    <section class="text-center  border-top">
+      <p class="p-1">&copy; 2024 Company, Inc. All rights reserved.</p>
+      <p class="p-1">Prod By <span class="text-muted">@root</span></p>
+    </section>
   </footer>
 </template>
 

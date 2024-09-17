@@ -15,34 +15,34 @@ const panier = ref('')
 const data = JSON.parse(localStorage.getItem('data'))
 //console.log(data.user.id)
 const onDemander = async () => {
-    try {
-      const response = await axios.post('/demandes',{
-        annonce_id:route.params.id,
-        user_id:data.user.id,
-        kilos_demandes:kilos_demandes.value
-      },{
-        headers:{
-          'Content-Type':'application/json',
-          'Authorization':`Bearer ${localStorage.getItem('token')}`
-        }
-      })
-      const demande = await response.data.demande
-      //console.log(demande)
-      if (response.data.status === 400) {
-        errors.value = response.data.errors;
-        console.log(response.data.message);
-      } else {
-        localStorage.setItem('maDemande',JSON.stringify(demande))
-        console.log(response.data.message);
+  try {
+    const response = await axios.post('/demandes',{
+      annonce_id:route.params.id,
+      user_id:data.user.id,
+      kilos_demandes:kilos_demandes.value
+    },{
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${localStorage.getItem('token')}`
       }
+    })
+    const demande = await response.data.demande
+    //console.log(demande)
+    if (response.data.status === 400) {
+      errors.value = response.data.errors;
+      console.log(response.data.message);
+    } else {
+      localStorage.setItem('maDemande',JSON.stringify(demande))
+      console.log(response.data.message);
+    }
 
-      const panierElement = document.querySelector('#panier');
-      let content = document.createElement('div');
-      if (panierElement) {
-        console.log(content)
-        content.setAttribute('class', 'container mt-5 w-80');
-        const maDemande = JSON.parse(localStorage.getItem('maDemande'))
-        content.innerHTML = `
+    const panierElement = document.querySelector('#panier');
+    let content = document.createElement('div');
+    if (panierElement) {
+      console.log(content)
+      content.setAttribute('class', 'container mt-5 w-80');
+      const maDemande = JSON.parse(localStorage.getItem('maDemande'))
+      content.innerHTML = `
       <div class="card" style="background-color:darkgreen;">
         <div class="card-body">
           <div class="d-flex justify-content-between">
@@ -77,31 +77,30 @@ const onDemander = async () => {
       <a href="/payment/${maDemande.id}" class="btn rounded-5 px-5" style="background-color:darkgreen;color: white"  >Continuer</a>
 </div>
     `;
-        panierElement.append(content);
-      } else {
-        console.error("L'élément #panier n'a pas été trouvé.");
-      }
-      const trash = document.querySelector('#trash')
-      //console.log(trash)
-
-      trash.addEventListener('click',(e)=>{
-        e.preventDefault()
-        if (confirm('Êtes-vous sûre?'))
-        {
-          console.log(document.querySelector('#panier'))
-          content.remove()
-          localStorage.removeItem('maDemande')
-        }
-
-      })
-    } catch (error) {
-      if (error.response && error.response.status === 400) {
-        errors.value = error.response.data.errors;
-        console.error("Validation errors:", errors.value);
-      } else {
-        console.error("Error: La requête a échoué", error);
-      }
+      panierElement.append(content);
+    } else {
+      console.error("L'élément #panier n'a pas été trouvé.");
     }
+    const trash = document.querySelector('#trash')
+    //console.log(trash)
+
+    trash.addEventListener('click',(e)=>{
+      e.preventDefault()
+      if (confirm('Êtes-vous sûre?'))
+      {
+        console.log(document.querySelector('#panier'))
+        content.remove()
+        localStorage.removeItem('maDemande')
+      }
+    })
+  } catch (error) {
+    if (error.response && error.response.status === 400) {
+      errors.value = error.response.data.errors;
+      console.error("Validation errors:", errors.value);
+    } else {
+      console.error("Error: La requête a échoué", error);
+    }
+  }
 }
 
 onMounted(async () => {

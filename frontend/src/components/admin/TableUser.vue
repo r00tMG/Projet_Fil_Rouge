@@ -32,11 +32,11 @@ const users = ref([])
   <div class="mt-5">
     <div class="d-flex justify-content-between my-2">
       <h4>Liste des users</h4>
-      <router-link to="/users" class="btn btn-sm btn-dark ">Create</router-link>
+      <router-link to="/users" class="btn btn-sm btn-success">Create</router-link>
     </div>
     <div class="table-responsive">
       <table class="table table-bordered  table-striped">
-        <thead class="table-dark">
+        <thead class="table-success">
         <tr>
           <th colspan="2">Name</th>
           <th colspan="4">Email</th>

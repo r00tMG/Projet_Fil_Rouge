@@ -52,8 +52,8 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  <div class="w-100">
-    <div class="kotak_login">
+  <div class="container m-5 rounded-5 shadow border border-success ">
+    <div class="p-5 w-100">
       <p class="tulisan_login">Publier une annonce</p>
         <img :src="logo" alt="Logo">
       <form @submit.prevent="onSubmit">
@@ -106,6 +106,7 @@ const onSubmit = async () => {
 
     </div>
   </div>
+
 </template>
 
 

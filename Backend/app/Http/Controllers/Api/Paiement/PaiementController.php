@@ -71,7 +71,6 @@ class PaiementController extends Controller
     {
         $order = Order::with('demande')->findOrFail($orderId);
             logger('order',['order'=>$order]);
-        // Générer le PDF
         $pdf = PDF::loadView('invoice.invoice', ['order'=>new OrderResource($order)]);
         logger('pdf',['pdf'=>$pdf]);
 

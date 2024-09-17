@@ -12,7 +12,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/invoice/{orderId}', [\App\Http\Controllers\Api\Paiement\PaiementController::class, 'generateInvoice']);
+Route::get('/invoice/25', function (){
+$order = \App\Models\Order::find(25);
+    return view('invoice.invoice',[
+        'order' => $order
+    ]);
+});
 
 Route::get('/', function () {
     return ['Laravel' => app()->version()];

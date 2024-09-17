@@ -99,7 +99,18 @@ const router = createRouter({
           name: 'payment.success',
           component: Success,
           meta: { requiresAuth: true }
-        }
+        },
+        {
+          path: '/login',
+          name: 'login',
+          component: Login
+        },
+        {
+          path: '/register',
+          name: 'register',
+          component: Register
+        },
+
       ]
     },
     {
@@ -138,18 +149,7 @@ const router = createRouter({
           meta: { requiresAuth: true }
         },
       ]
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: Register
-    },
-
+    }
 
 
   ]

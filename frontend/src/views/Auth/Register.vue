@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import logo from '@/assets/logo.png';
+import Swal from "sweetalert2";
 
 export default {
   name: 'Register',
@@ -57,8 +58,13 @@ export default {
           errors.value = response.data.errors;
           alert(response.data.message);
         } else {
+          Swal.fire({
+            title: 'Succés',
+            text: response.data.message,
+            icon: 'success',
+            confirmButton: 'Ok'
+          })
           await router.push('/login');
-          alert(response.data.message);
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {
@@ -88,63 +94,72 @@ export default {
 </script>
 
 <template>
-
-  <div class="kotak_login">
-    <p class="tulisan_login">Register</p>
-
-    <img :src="logo" alt="Logo">
-    <form @submit.prevent="onRegister" enctype="multipart/form-data">
-      <div class="form-group mb-3">
-        <label>name</label>
-        <input type="text" v-model="name" name="name" class="form_login" placeholder="Name..">
-        <div v-if="errors.name" class="text-danger">{{ errors.name[0] }}</div>
-
-
+<div class="container">
+  <div class="row border rounded-1 m-5 shadow border-success">
+    <div class=" bg-success col-md-6">
+      <h1 class="tulisan_login text-center text-light mt-5">Register</h1>
+    </div>
+    <div class="col-md-6">
+      <div class="p-4  w-100">
+        <img :src="logo" alt="Logo">
+        <form @submit.prevent="onRegister" enctype="multipart/form-data">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+              <label>name</label>
+              <input type="text" v-model="name" name="name" class="form_login" placeholder="Name..">
+              <div v-if="errors.name" class="text-danger">{{ errors.name[0] }}</div>
+            </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+              <label>Email</label>
+              <input type="text" v-model="email" name="email" class="form_login" placeholder="Email..">
+              <div v-if="errors.email" class="text-danger">{{ errors.email[0] }}</div>
+              </div>
+              </div>
+            </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+              <label>Password</label>
+              <input type="password" v-model="password"	name="password" class="form_login" placeholder="Password ..">
+                <div v-if="errors.password" class="text-danger">{{ errors.password[0] }}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+              <label>Password Confirmation</label>
+              <input type="password" v-model="password_confirmation"	name="password_confirmation" class="form_login" placeholder="Password ..">
+                <div v-if="errors.password_confirmation" class="text-danger">{{ errors.password_confirmation[0] }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+            <div>
+              <label>Photo Profile</label>
+              <input type="file"  @change="onProfile"	name="photo_profile" class="form-control form_login" >
+                <div v-if="errors.photo_profile" class="text-danger">{{ errors.photo_profile[0] }}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <label>Veuillez choisir un role: </label>
+                <select class="form-select" name="roles" v-model="selectRoles" id="roles">
+                  <option v-for="getRole in getRoles" :key="getRole.id" :value="getRole.name">{{getRole.name}}</option>
+                </select>
+                <div v-if="errors.roles" class="text-danger">{{ errors.roles[0] }}</div>
+              </div>
+            </div>
+          </div>
+          <input type="submit" class="tombol_login" value="Register">
+          <p>Si vous n'êtes pas inscrite veuillez<router-link to="/login"> cliquer ici</router-link></p>
+        </form>
       </div>
-
-      <div class="form-group mb-3">
-        <label>Email</label>
-        <input type="text" v-model="email" name="email" class="form_login" placeholder="Email..">
-        <div v-if="errors.email" class="text-danger">{{ errors.email[0] }}</div>
-
-      </div>
-
-      <div class="form-group mb-3">
-      <label>Password</label>
-      <input type="password" v-model="password"	name="password" class="form_login" placeholder="Password ..">
-        <div v-if="errors.password" class="text-danger">{{ errors.password[0] }}</div>
-
-      </div>
-      <div class="form-group mb-3">
-
-      <label>Password Confirmation</label>
-      <input type="password" v-model="password_confirmation"	name="password_confirmation" class="form_login" placeholder="Password ..">
-        <div v-if="errors.password_confirmation" class="text-danger">{{ errors.password_confirmation[0] }}</div>
-
-      </div>
-      <div>
-      <label>Photo Profile</label>
-      <input type="file"  @change="onProfile"	name="photo_profile" class="form-control form_login" >
-        <div v-if="errors.photo_profile" class="text-danger">{{ errors.photo_profile[0] }}</div>
-      </div>
-      <div class="form-group mb-3">
-      <label>Role(s): </label>
-      <select class="form-select" name="roles" v-model="selectRoles" id="roles">
-        <option v-for="getRole in getRoles" :key="getRole.id" :value="getRole.name">{{getRole.name}}</option>
-      </select>
-        <div v-if="errors.roles" class="text-danger">{{ errors.roles[0] }}</div>
-
-      </div>
-
-
-
-
-      <input type="submit" class="tombol_login" value="Register">
-      <p>Si vous n'êtes pas inscrite veuillez<router-link to="/login"> cliquer ici</router-link></p>
-
-    </form>
-
+    </div>
   </div>
+</div>
 
 
 </template>
@@ -167,7 +182,6 @@ h1 {
 }
 
 .kotak_login {
-  width: 350px;
   background: #f2f2f2;
   /*tengah*/
   margin: 80px auto;
