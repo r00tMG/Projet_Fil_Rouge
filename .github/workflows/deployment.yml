@@ -31,3 +31,17 @@ jobs:
             **/package-lock.json
             **/package.json
             **/readme.md
+
+      - name: 🚀 SSH into the production server and restart PM2
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.sftp_host }}
+          username: ${{ secrets.sftp_user }}
+          password: ${{ secrets.sftp_password }}
+          port: 22
+          script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            cd /sites/filrouge.mayaapps.site/
+            npm install
+            pm2 restart all

@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteRule ^$ http://localhost:5173/ [P]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ http://localhost:5173/$1 [P]
+
+RewriteCond %{REQUEST_URI} ^/backend [NC]
+RewriteRule ^(.*)$ http://localhost:8000/$1 [P]
