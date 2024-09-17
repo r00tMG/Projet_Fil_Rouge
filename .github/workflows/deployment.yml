@@ -28,8 +28,6 @@ jobs:
           exclude: |
             **/node_modules/**
             **/.gitignore
-            **/package-lock.json
-            **/package.json
             **/readme.md
 
       - name: 🚀 SSH into the production server and restart PM2
