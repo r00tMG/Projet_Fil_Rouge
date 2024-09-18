@@ -38,7 +38,7 @@ const onSubmit = async () => {
       //alert(response.data.message);
       await Swal.fire({
         title:'error',
-        text:errors.value,
+        text:response.data.message,
         icon: 'error',
         confirmButton: 'Ok'
       })
