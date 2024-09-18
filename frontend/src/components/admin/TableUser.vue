@@ -1,9 +1,9 @@
 <script setup>
 import {onMounted, ref} from "vue";
-import axios from "axios";
+import axios from "@/axios.js";
 const users = ref([])
   onMounted(async () => {
-    const r = await axios.get('http://backend.test/api/users',{
+    const r = await axios.get('/users',{
       headers:{
         'Accept':'application/json',
         'Authorization':`Bearer ${localStorage.getItem('token')}`
@@ -11,7 +11,6 @@ const users = ref([])
     })
      users.value = await r.data
     //console.log(users.value)
-
   })
   const onDelete = async (id) => {
     //console.log(id)
