@@ -3,6 +3,7 @@ import {useRoute, useRouter} from "vue-router";
   import {onMounted, ref} from "vue";
 import axios from "@/axios.js";
 import logo from '@/assets/logo.png';
+import Swal from "sweetalert2";
   export default {
     name: "UserEdit",
     setup(){
@@ -82,6 +83,13 @@ import logo from '@/assets/logo.png';
           if (response.data.status === 400) {
             errors.value = response.data.errors;
             alert(response.data.message);
+            Swal.fire({
+              title:'success',
+              text:response.data.message,
+              icon:'success',
+              confirmButton: 'OK'
+
+            })
           } else {
             await router.push('/users/index');
             alert(response.data.message);

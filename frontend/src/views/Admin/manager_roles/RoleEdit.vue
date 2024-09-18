@@ -40,7 +40,6 @@ onMounted(async () => {
   })
   permissions.value = await r.data
   //console.log(permissions.value)
-
 })
 
 const onSubmit = async () => {
@@ -56,10 +55,9 @@ const onSubmit = async () => {
       },
 
     })
-    console.log(name,permission)
-
+    //console.log(name,permission)
     data.value = await response.data
-    console.log(data.value)
+    //console.log(data.value)
     if (response.data.status === 400) {
       errors.value = response.data.errors;
       //alert(response.data.message);
@@ -82,7 +80,13 @@ const onSubmit = async () => {
     if (error.response && error.response.status === 400) {
       errors.value = error.response.data;
       //console.error("Validation errors:", errors.value.message);
-      alert(errors.value.message)
+      //alert(errors.value.message)
+      Swal.fire({
+        title: 'success',
+        text: errors.value.message,
+        icon: 'success',
+        confirmButton:'Ok'
+      })
     } else {
       console.error("Error: La requête a échoué", error.response);
     }
