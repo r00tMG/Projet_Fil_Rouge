@@ -12,7 +12,7 @@ const token = localStorage.getItem('token');
 
 const fetchPermissions = async () => {
   try {
-    const response = await axios.get('http://backend.test/api/permissions', {
+    const response = await axios.get('/permissions', {
       headers: {
         'Authorization': `Bearer ${token}`,
       },

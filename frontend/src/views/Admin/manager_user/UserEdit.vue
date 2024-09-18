@@ -20,14 +20,6 @@ import logo from '@/assets/logo.png';
       const data = ref([])
       const token = localStorage.getItem('token')
 
-      /*const onProfile = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          photo_profile.value = file;
-          console.log('Selected file:', photo_profile.value.name);
-        }
-      }
-      console.log('Type of photo_profile:', typeof photo_profile.value);*/
       onMounted(async () => {
         const r = await axios.get(`/users/${route.params.id}`,{
           headers: {
@@ -43,8 +35,7 @@ import logo from '@/assets/logo.png';
         password_confirmation.value = ''
         photo_profile.value = user.value.user.photo_profile
         selectRoles.value = user.value.user.roles
-        //selectPermissions.value = user.value.user.permissions
-        //console.log(name.value,email.value,password.value,password_confirmation.value,photo_profile.value)
+
       })
       // Collection des roles
       onMounted(async () => {

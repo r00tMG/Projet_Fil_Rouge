@@ -15,7 +15,7 @@ const users = ref([])
   const onDelete = async (id) => {
     //console.log(id)
     if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
-      const r = await axios.delete(`http://backend.test/api/users/${id}`, {
+      const r = await axios.delete(`/users/${id}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
