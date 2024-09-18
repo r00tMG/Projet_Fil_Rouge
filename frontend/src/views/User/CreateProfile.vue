@@ -96,7 +96,7 @@ export default {
           <div class="form-group mb-3">
           <label>Hobbies</label>
             <input type="text" v-model="hobbies" name="hobbies" class="form_login" placeholder="Hobbies..">
-          < p v-if="errors.hobbies" class="text-danger">{{ errors.hobbies[0] }}</p>
+            <p v-if="errors.hobbies" class="text-danger">{{ errors.hobbies[0] }}</p>
         </div>
         </div>
         <div class="col-md-6">
