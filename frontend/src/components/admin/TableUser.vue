@@ -1,6 +1,7 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import axios from "@/axios.js";
+import Swal from "sweetalert2";
 const users = ref([])
   onMounted(async () => {
     const r = await axios.get('/users',{
@@ -10,7 +11,7 @@ const users = ref([])
       }
     })
      users.value = await r.data
-    //console.log(users.value)
+    console.log(users.value)
   })
   const onDelete = async (id) => {
     //console.log(id)
@@ -21,7 +22,13 @@ const users = ref([])
         }
       })
       const data = r.data
-      alert(data.message)
+      Swal.fire({
+        title:'success',
+        text: data.message,
+        icon:'success',
+        confirmButton: 'Ok'
+
+      })
     }
   }
 
