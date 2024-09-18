@@ -4,6 +4,7 @@ import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from "@/axios.js";
 import logo from '@/assets/logo.png';
+import Swal from "sweetalert2";
 export default {
   name: 'EditProfile',
   components: { Navbar },
@@ -60,10 +61,22 @@ export default {
         //console.log(profile.value)
         if (response.data.status === 400) {
           errors.value = response.data.errors;
-          alert(response.data.message);
+          //alert(response.data.message);
+          await Swal.fire({
+            title:'error',
+            text:errors.value,
+            icon: 'error',
+            confirmButton: 'Ok'
+          })
         } else {
           await router.push('/profile');
-          alert(response.data.message);
+          /////alert(response.data.message);
+          await Swal.fire({
+            title:'success',
+            text:response.data.message,
+            icon: 'success',
+            confirmButton: 'Ok'
+          })
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {

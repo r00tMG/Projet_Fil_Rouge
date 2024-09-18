@@ -95,7 +95,7 @@ export default {
                             <span class="fa-stack fa-sm">
                                 <i class="fas fa-circle fa-stack-2x"></i>
                                 <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
-                            </span>
+                            </span>Edit
                   <span class="fa-stack fa-sm">
                                 <i class="fas fa-circle fa-stack-2x"></i>
                                 <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>

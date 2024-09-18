@@ -3,6 +3,7 @@ import {ref} from "vue";
 import axios from "@/axios.js";
 import {useRouter} from "vue-router";
 import logo from '@/assets/logo.png';
+import Swal from "sweetalert2";
 const kilos_disponibles = ref('')
 const date_depart = ref('')
 const date_arrivee = ref('')
@@ -34,10 +35,22 @@ const onSubmit = async () => {
     annonce.value = await response.data
     if (response.data.status === 400) {
       errors.value = response.data.errors;
-      alert(response.data.message);
+      //alert(response.data.message);
+      await Swal.fire({
+        title:'error',
+        text:errors.value,
+        icon: 'error',
+        confirmButton: 'Ok'
+      })
     } else {
       await router.push('/annonces/index');
-      alert(response.data.message);
+      //alert(response.data.message);
+      await Swal.fire({
+        title:'success',
+        text:response.data.message,
+        icon: 'success',
+        confirmButton: 'Ok'
+      })
     }
   } catch (error) {
     if (error.response && error.response.status === 400) {

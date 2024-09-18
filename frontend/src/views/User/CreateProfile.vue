@@ -4,6 +4,7 @@ import { onMounted, ref } from 'vue'
 import axios from "@/axios.js";
 import { useRouter } from 'vue-router'
 import logo from '@/assets/logo.png'
+import Swal from "sweetalert2";
 
 export default {
   name: 'CreateProfile',
@@ -37,11 +38,20 @@ export default {
         console.log(profile.value)
         if (response.data.status === 400) {
           errors.value = response.data.errors;
-          alert(response.data.message);
+          await Swal.fire({
+            title:'error',
+            text:errors.value,
+            icon: 'error',
+            confirmButton: 'Ok'
+          })
         } else {
           await router.push('/profile/index');
-          alert(response.data.message);
-        }
+          await Swal.fire({
+            title:'success',
+            text:response.data.message,
+            icon: 'success',
+            confirmButton: 'Ok'
+          })        }
       } catch (error) {
         if (error.response && error.response.status === 400) {
           errors.value = error.response.data.errors;
