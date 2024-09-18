@@ -54,11 +54,12 @@ class PaiementController extends Controller
         $order->status = 'paid';
         $order->payment_status = 'succeeded';
         $order->paid_at = now();
+        $order->email=$request->email;
         $order->save();
-        Mail::send(new SendOrderMail(
+       /* Mail::send(new SendOrderMail(
             $order,
             $validator->getData()
-        ));
+        ));*/
         logger('email', ['email' => $order['demande']['user']['email']]);
 
         return response()->json([
