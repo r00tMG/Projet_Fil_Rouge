@@ -84,9 +84,9 @@ import Swal from "sweetalert2";
             errors.value = response.data.errors;
             alert(response.data.message);
             Swal.fire({
-              title:'success',
+              title:'error',
               text:response.data.message,
-              icon:'success',
+              icon:'error',
               confirmButton: 'OK'
 
             })

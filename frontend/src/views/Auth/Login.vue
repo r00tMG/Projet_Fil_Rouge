@@ -19,7 +19,6 @@ export default {
             password: password.value
         },{
           headers: { 'Content-Type':'application/json' },
-
         })
         const data = response.data
         console.log(data.user)
