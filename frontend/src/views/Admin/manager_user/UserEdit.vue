@@ -82,7 +82,7 @@ import Swal from "sweetalert2";
           console.log(data.value)
           if (response.data.status === 400) {
             errors.value = response.data.errors;
-            alert(response.data.message);
+            //alert(response.data.message);
             Swal.fire({
               title:'error',
               text:response.data.message,

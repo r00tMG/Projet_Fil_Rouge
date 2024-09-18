@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import axios from "@/axios.js";
 import { useRouter } from 'vue-router'
 import logo from '@/assets/logo.png';
+import Swal from "sweetalert2";
 export default {
   name: 'UserCreate',
   setup(){
@@ -65,9 +66,22 @@ export default {
         if (response.data.status === 400) {
           errors.value = response.data.errors;
           alert(response.data.message);
+          Swal.fire({
+            title:'error',
+            text:response.data.message,
+            icon:'error',
+            confirmButton: 'OK'
+
+          })
         } else {
           await router.push('/users/index');
-          alert(response.data.message);
+          Swal.fire({
+            title:'success',
+            text:response.data.message,
+            icon:'success',
+            confirmButton: 'OK'
+
+          })
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {

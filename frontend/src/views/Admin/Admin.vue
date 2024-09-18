@@ -23,7 +23,7 @@ export default {
     <div >
       <nav class="navbar bg-body-light navbar-top">
         <div class="container-fluid">
-          <a class="navbar-brand title text-center fs-1">Admin</a>
+          <router-link to="/" class="navbar-brand title text-center fs-1">Admin</router-link>
           <ul class="d-flex">
             <li>
               <a href="#message">

@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from "@/axios.js";
 import logo from '@/assets/logo.png';
+import Swal from "sweetalert2";
 const name = ref('');
 const permissions = ref([]);
 const allPermissions = ref([]);
@@ -39,6 +40,13 @@ const submitForm = async () => {
     console.log(role)
     // Rediriger vers la page des rôles si la création est réussie
     if (role.status === 201) {
+      Swal.fire({
+        title:'success',
+        text:response.data.message,
+        icon:'success',
+        confirmButton: 'OK'
+
+      })
       await router.push('/roles/index');
     }
 
