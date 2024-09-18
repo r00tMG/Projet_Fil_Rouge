@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: '/backend/api/'
+  baseURL: '/Backend/public/api/'
 });
 instance.interceptors.request.use(config => {
   const token = localStorage.getItem('token');

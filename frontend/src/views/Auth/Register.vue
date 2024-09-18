@@ -1,6 +1,6 @@
 <script>
 import { onMounted, ref } from 'vue'
-import axios from '@/axios.js'
+import axios from 'axios'
 import { useRouter } from 'vue-router'
 import logo from '@/assets/logo.png';
 import Swal from "sweetalert2";
@@ -24,7 +24,7 @@ export default {
       console.log('Selected file:', photo_profile.value);
     }
     onMounted(async () => {
-      const r = await axios.get('/getRoles',{
+      const r = await axios.get('/Backend/public/api/getRoles',{
         headers: {
           'Accept':'application/json',
           //'Authorization':`Bearer ${token}`

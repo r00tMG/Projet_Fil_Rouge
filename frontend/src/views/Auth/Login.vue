@@ -14,7 +14,7 @@ export default {
     const errors = ref({})
     const onLogin = async () => {
       try{
-        const response = await axios.post('/backend/api/login', {
+        const response = await axios.post('/Backend/public/api/login', {
             email: email.value,
             password: password.value
         },{
