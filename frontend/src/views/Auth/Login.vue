@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import logo from '@/assets/logo.png';
-import axios from "@/axios.js";
+import axios from "axios";
 
 
 export default {
