@@ -66,7 +66,7 @@ export default {
         if (response.data.status === 400) {
           errors.value = response.data.errors;
           alert(response.data.message);
-          Swal.fire({
+          await Swal.fire({
             title:'error',
             text:response.data.message,
             icon:'error',
@@ -75,7 +75,7 @@ export default {
           })
         } else {
           await router.push('/users/index');
-          Swal.fire({
+          await Swal.fire({
             title:'success',
             text:response.data.message,
             icon:'success',
