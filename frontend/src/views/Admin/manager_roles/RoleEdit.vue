@@ -3,6 +3,7 @@ import {useRoute, useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
 import axios from "@/axios.js";
 import logo from '@/assets/logo.png';
+import Swal from "sweetalert2";
 
 const route = useRoute()
 const name = ref('')
@@ -61,10 +62,21 @@ const onSubmit = async () => {
     console.log(data.value)
     if (response.data.status === 400) {
       errors.value = response.data.errors;
-      alert(response.data.message);
+      //alert(response.data.message);
+      Swal.fire({
+        title: 'success',
+        text: response.data.message,
+        icon: 'success',
+        confirmButton:'Ok'
+      })
     } else {
       await router.push('/roles/index');
-      alert(response.data.message);
+      Swal.fire({
+        title: 'success',
+        text: response.data.message,
+        icon: 'success',
+        confirmButton:'Ok'
+      })
     }
   } catch (error) {
     if (error.response && error.response.status === 400) {
