@@ -67,7 +67,7 @@ export default {
 
 <template>
   <Navbar />
-  <div class="w-100 border border-success shadow mt-5 p-5">
+  <div class="w-w-75 m-auto border border-success shadow mt-5 p-5">
     <p class="tulisan_login">Créer votre profile Utilisateur</p>
 
     <img :src="logo" alt="coffee">
