@@ -126,8 +126,8 @@ import Swal from "sweetalert2";
 </script>
 
 <template>
-  <div class="container mt-5  shadow rounded-5 border border-success">
-    <div class="p-5 w-100">
+  <div class="container my-3 shadow rounded-4 border border-success">
+    <div class="p-2 w-100">
     <p class="tulisan_login">Modifier un Utilisateur</p>
 
     <img :src="logo" alt="Logo">

@@ -111,8 +111,8 @@ export default {
 </script>
 
 <template>
-<div class="container mt-5  shadow rounded-5 border border-success">
-  <div class="p-5 w-100">
+<div class="container my-3 shadow rounded-4 border border-success">
+  <div class="p-2 w-100">
     <p class="tulisan_login">Créer un utilisateur</p>
     <img :src="logo" alt="Logo">
     <form @submit.prevent="onRegister" enctype="multipart/form-data">

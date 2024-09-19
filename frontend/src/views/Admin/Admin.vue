@@ -66,7 +66,7 @@ setup(){
       <div class="container-fluid px-0">
         <div class="row">
           <Sidebar />
-          <div class="col-md-10">
+          <div class="col-md-10 border border-success">
             <router-view />
           </div>
         </div>

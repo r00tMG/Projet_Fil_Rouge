@@ -98,8 +98,8 @@ const onSubmit = async () => {
 </script>
 
 <template>
-<div class="container rounded-5 border border-success shadow mt-5">
-  <div class="p-5 w-100">
+<div class="container border border-success mt-2 rounded-4 shadow ">
+  <div class="p-3 w-100">
     <p class="tulisan_login">Modifier un role</p>
     <img :src="logo" alt="Logo">
     <form @submit.prevent="onSubmit" >

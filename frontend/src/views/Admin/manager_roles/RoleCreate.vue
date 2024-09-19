@@ -64,7 +64,7 @@ fetchPermissions();
 </script>
 
 <template>
-  <div class="container border border-success mt-5 rounded-5 shadow p-5">
+  <div class="container border border-success mt-2 rounded-4 shadow p-3">
     <p class="tulisan_login">Créer un role</p>
     <img :src="logo" alt="Logo">
     <form @submit.prevent="submitForm" >
