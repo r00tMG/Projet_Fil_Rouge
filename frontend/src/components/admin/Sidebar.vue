@@ -17,15 +17,15 @@
 
     <div class="sidenav-url " >
       <div class="url">
-        <router-link to="/users/index" :class="{ active: $route.path === `/users/index` }">Users</router-link>
+        <router-link to="/users/index"  class="text-light" :class="{ active: $route.path === `/users/index` }">Users</router-link>
         <hr align="center">
       </div>
       <div class="url">
-        <router-link to="/roles/index" :class="{ active: $route.path === `/roles/index` }">Roles</router-link>
+        <router-link to="/roles/index" class="text-light" :class="{ active: $route.path === `/roles/index` }">Roles</router-link>
         <hr align="center">
       </div>
       <div class="url">
-        <a href="#settings">Settings</a>
+        <a href="#settings" class="text-light">Settings</a>
         <hr align="center">
       </div>
     </div>
