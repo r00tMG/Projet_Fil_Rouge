@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import logo from '@/assets/images/logo.png';
-import axios from "axios";
-import axiosA from '@/axios.js'
+import axiosNoAuth from "@/axiosNoAuth.js";
+import axios from '@/axios.js'
 import Swal from "sweetalert2";
 
 
@@ -16,7 +16,7 @@ export default {
     const errors = ref({})
     const onLogin = async () => {
       try{
-        const response = await axios.post('https://backend-mongp.mayaapps.site/api/login', {
+        const response = await axiosNoAuth.post('/login', {
             email: email.value,
             password: password.value
         },{
@@ -54,7 +54,7 @@ export default {
     }
     const profile = ref([])
     const checkUserProfile = async (tok) =>{
-      const r = await axiosA.get('/profiles',{
+      const r = await axios.get('/profiles',{
         headers:{
           'Accept':'application/json',
           'Authorization':`Bearer ${tok}`
