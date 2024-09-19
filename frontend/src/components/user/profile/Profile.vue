@@ -120,7 +120,7 @@ export default {
 </div>
 
 <!--           <h2>SOCIAL MEDIA</h2>-->
-                     <div class="card fixed-bottom">
+                     <div class="card">
                        <div class="card-body">
                          <i class="fa fa-pen fa-xs edit"></i>
                          <div class="social-media">
