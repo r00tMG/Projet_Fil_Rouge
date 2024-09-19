@@ -37,9 +37,9 @@
     padding: 4px;
 }
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*left: 0;*/
     height: 100vh; /* Hauteur pleine de la vue */
     /*width: 250px;  Largeur de la sidebar */
     background-color: #343a40;
@@ -51,7 +51,7 @@
     color: white;
     /*padding: 15px;*/
     text-decoration: none;
-    display: block;
+    /*display: block;*/
 }
 
 .sidebar a:hover {
