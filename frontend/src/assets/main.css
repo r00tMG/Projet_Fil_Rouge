@@ -1,4 +1,8 @@
-
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
 .corde{
 
     box-sizing: border-box;
@@ -55,10 +59,9 @@
 }
 
 .sidebar a:hover {
-    background-color: #007bff;
+    background-color: #337447;
 }
 
-/* Le contenu principal doit avoir une marge pour ne pas être sous la sidebar */
 .main-content {
     /*margin-left: 250px;  Égale à la largeur de la sidebar
     padding: 20px;*/
