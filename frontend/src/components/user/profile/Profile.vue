@@ -86,7 +86,7 @@ export default {
 
 <div class="container">
   <div class="row">
-    <div class="col-md-3 mt-5" v-if="profile.profiles.length > 0" v-for="profile in profile.profiles">
+    <div class="col-md-3 mt-5 sidebar" v-if="profile.profiles.length > 0" v-for="profile in profile.profiles">
       <div class="profile">
         <img :src="profile.user.storage + '/' + profile.user.photo_profile" alt="Photo Profile" width="100" height="100">
         <div  v-if="role.permission" v-for="permission in role.permission">
@@ -113,7 +113,7 @@ export default {
         </div>
       </div>
     </div>
-    <div class="col-md-9 w-80 m-auto">
+    <div class="col-md-9 main-content w-80 m-auto">
       <router-view />
     </div>
   </div>
