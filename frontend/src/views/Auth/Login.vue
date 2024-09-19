@@ -53,7 +53,7 @@ export default {
     }
     const profile = ref([])
     const checkUserProfile = async (tok) =>{
-      const r = await axios.get('/profiles',{
+      const r = await axios.get('https://backend-mongp.mayaapps.site/api/profiles',{
         headers:{
           'Accept':'application/json',
           'Authorization':`Bearer ${tok}`
