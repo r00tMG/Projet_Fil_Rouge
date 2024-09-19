@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import logo from '@/assets/images/logo.png';
 import axios from "axios";
+import axiosA from '@/axios.js'
 import Swal from "sweetalert2";
 
 
@@ -53,7 +54,7 @@ export default {
     }
     const profile = ref([])
     const checkUserProfile = async (tok) =>{
-      const r = await axios.get('https://backend-mongp.mayaapps.site/api/profiles',{
+      const r = await axiosA.get('/profiles',{
         headers:{
           'Accept':'application/json',
           'Authorization':`Bearer ${tok}`
