@@ -43,7 +43,7 @@ setup(){
       <nav class="navbar bg-body-light navbar-top p-2">
         <div class="container-fluid">
           <router-link to="/" class="navbar-brand title text-center text-success fs-1">
-            <img :src="logo" alt="Logo">
+            <img :src="logo" alt="Logo" width="70" height="70">
             Admin</router-link>
           <ul class="d-flex p-2">
             <li>
