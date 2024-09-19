@@ -7,12 +7,29 @@ import TableUser from "@/components/admin/TableUser.vue";
 import NavTabs from "@/components/admin/NavTabs.vue";
 import TableRole from "@/components/admin/TableRole.vue";
 import Sidebar from "@/components/admin/Sidebar.vue";
+import router from "@/router/index.js";
 
 export default {
   name: "Admin.vue",
   components: {Sidebar, TableRole, NavTabs, TableUser, Header, TableAdmin, Navbar},
 
-
+setup(){
+  const handleLogout = async () => {
+    try {
+      //console.log(token)
+      localStorage.removeItem('token')
+      localStorage.removeItem('data')
+      //console.log(token)
+      await router.push('/login');
+    } catch (error) {
+      console.log('Salut')
+      console.error('Logout failed:', error);
+    }
+  }
+  return {
+    handleLogout
+  }
+}
 }
 </script>
 
@@ -21,35 +38,35 @@ export default {
     <!-- Navbar top -->
 
     <div >
-      <nav class="navbar bg-body-light navbar-top">
+      <nav class="navbar bg-body-light navbar-top p-2">
         <div class="container-fluid">
           <router-link to="/" class="navbar-brand title text-center fs-1">Admin</router-link>
-          <ul class="d-flex">
+          <ul class="d-flex p-2">
             <li>
               <a href="#message">
                 <span class="icon-count">29</span>
-                <i class="fa fa-envelope fa-2x"></i>
+                <i class="fa fa-envelope fa-2x text-success"></i>
               </a>
             </li>
             <li>
               <a href="#notification">
                 <span class="icon-count">59</span>
-                <i class="fa fa-bell fa-2x"></i>
+                <i class="fa fa-bell fa-2x text-success"></i>
               </a>
             </li>
             <li>
-              <router-link to="/login" class="">
-                <i class="fa fa-sign-out-alt fa-2x"></i>
-              </router-link>
+              <a @click="handleLogout">
+                <i class="fa fa-sign-out-alt fa-2x text-success"></i>
+              </a>
             </li>
           </ul>
         </div>
       </nav>
 
-      <div class="container">
+      <div class="container-fluid px-0">
         <div class="row">
           <Sidebar />
-          <div class="col-md-9">
+          <div class="col-md-10">
             <router-view />
           </div>
         </div>

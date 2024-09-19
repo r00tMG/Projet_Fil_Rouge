@@ -105,8 +105,8 @@ export default {
 
 <template>
 <!--  <Navbar />-->
-  <div class="container m-5 rounded-5 shadow border border-success ">
-    <div class="p-5 w-100">
+  <div class="container  rounded-4 shadow border border-success ">
+    <div class="p-3 w-100">
       <p class="tulisan_login">Modifier votre profile Utilisateur</p>
 
       <img :src="logo" alt="Logo">

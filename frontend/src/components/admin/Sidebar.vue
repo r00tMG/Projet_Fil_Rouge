@@ -4,8 +4,8 @@
 </script>
 
 <template>
-  <div class="col-md-3 mt-5">
-    <div class="profile">
+  <div class="col-md-2 sidebar ">
+    <div class="profile mt-5">
       <img src="#"  alt="Photo Profile" class="rounded-circle" width="100" height="100">
       <div  >
         <div class="name" >
