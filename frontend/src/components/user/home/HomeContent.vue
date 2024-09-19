@@ -5,6 +5,7 @@ import axios from "@/axios.js";
 import '@vuepic/vue-datepicker/dist/main.css'
 import Multiselect from '@vueform/multiselect';
 import '@vueform/multiselect/themes/default.css';
+import terre from '@/assets/terre.png'
 const annonces = ref([]);
 const searchDepart = ref('');
 const searchArrivee = ref('');
@@ -181,6 +182,9 @@ onMounted(async () => {
     </div>
     <div v-else-if="hasSearched && filteredAnnonces.length === 0" class="text-center bg-danger rounded-5 px-5 py-3 w-50 m-auto text-light">
       <p>Aucune annonce trouvée pour ces critères de recherche.</p>
+    </div>
+    <div class="container-fluid">
+      <img :src="terre" alt="">
     </div>
   </main>
   <FooterHome />
