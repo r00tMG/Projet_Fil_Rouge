@@ -84,7 +84,7 @@ export default {
       </div>
     </nav>
 
-<div class="container-fluid px-0"">
+<div class="container-fluid px-0">
   <div class="row">
     <div class="col-md-3 sidebar" v-if="profile.profiles.length > 0" v-for="profile in profile.profiles">
       <div class="profile mt-5">
