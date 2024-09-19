@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
-import logo from '@/assets/logo.png';
+import logo from '@/assets/images/logo.png';
 import Swal from "sweetalert2";
 
 export default {
@@ -47,7 +47,7 @@ export default {
       formData.append('roles', selectRoles.value)
       try{
 
-        const response = await axios.post('/backend/api/register',formData,{
+        const response = await axios.post('/Backend/public/api/register',formData,{
           headers: {
             'Content-Type': 'multipart/form-data'
           },

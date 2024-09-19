@@ -3,7 +3,7 @@ import Navbar from '@/components/Navbar.vue'
 import { onMounted, ref } from 'vue'
 import axios from "@/axios.js";
 import { useRouter } from 'vue-router'
-import logo from '@/assets/logo.png'
+import logo from '@/assets/images/logo.png'
 import Swal from "sweetalert2";
 
 export default {

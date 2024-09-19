@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from "@/axios.js";
-import logo from '@/assets/logo.png';
+import logo from '@/assets/images/logo.png';
 import Swal from "sweetalert2";
 const name = ref('');
 const permissions = ref([]);

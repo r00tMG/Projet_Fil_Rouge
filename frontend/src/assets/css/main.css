@@ -68,3 +68,49 @@
     overflow-y: auto;
     height: 100vh; /* Hauteur pleine de la vue */
 }
+
+
+
+
+
+
+.step-number {
+    background-color: #4b0082;
+    color: white;
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.step-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.step-text {
+    max-width: 50%;
+}
+
+.step-image {
+    max-width: 45%;
+}
+
+.step-text h2 {
+    color: #ff5a5f;
+}
+
+@media (max-width: 768px) {
+    .step-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .step-text, .step-image {
+        max-width: 100%;
+    }
+}

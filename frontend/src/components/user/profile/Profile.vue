@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar.vue'
 import ProfileContent from "@/components/user/profile/TableProfile.vue";
 import FooterHome from "@/components/user/home/FooterHome.vue";
 import router from "@/router/index.js";
-import logo from '@/assets/logo.png'
+import logo from '@/assets/images/logo.png'
 
 export default {
   name: 'Profile',

@@ -5,7 +5,8 @@ import axios from "@/axios.js";
 import '@vuepic/vue-datepicker/dist/main.css'
 import Multiselect from '@vueform/multiselect';
 import '@vueform/multiselect/themes/default.css';
-import terre from '@/assets/terre.png'
+import terre from '@/assets/images/terre.png'
+import monde from '@/assets/images/monde.svg'
 const annonces = ref([]);
 const searchDepart = ref('');
 const searchArrivee = ref('');
@@ -183,7 +184,35 @@ onMounted(async () => {
     <div v-else-if="hasSearched && filteredAnnonces.length === 0" class="text-center bg-danger rounded-5 px-5 py-3 w-50 m-auto text-light">
       <p>Aucune annonce trouvée pour ces critères de recherche.</p>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid bg-light">
+      <div class="container w-80 m-auto">
+        <div class="row p-5 m-auto">
+          <div class="col-md-6">
+              <div class="row mt-5">
+                <p class="mt-5">
+                  <span class="step-number me-3">1</span>
+                  <span class="text-success fs-3">Connect</span>
+                </p>
+                <p class="w-50 ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad adipisci dolor, eos est </p>
+              </div>
+          </div>
+            <img :src="monde" class="col-md-6 img-fluid" alt="#">
+        </div>
+        <div class="row p-5 my-2 m-auto">
+          <div class="col-md-6 bg-primary">
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6 bg-danger">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias beatae commodi consequatur eaque recusandae, suscipit. Ab accusantium ad alias doloribus eligendi fuga fugiat harum incidunt molestiae possimus, praesentium, quisquam voluptatem!
+              </div>
+              <div class="col-md-6 bg-success">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias beatae commodi consequatur eaque recusandae, suscipit. Ab accusantium ad alias doloribus eligendi fuga fugiat harum incidunt molestiae possimus, praesentium, quisquam voluptatem!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <img :src="terre" alt="">
     </div>
   </main>

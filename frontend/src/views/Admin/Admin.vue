@@ -8,7 +8,7 @@ import NavTabs from "@/components/admin/NavTabs.vue";
 import TableRole from "@/components/admin/TableRole.vue";
 import Sidebar from "@/components/admin/Sidebar.vue";
 import router from "@/router/index.js";
-import logo from '@/assets/logo.png'
+import logo from '@/assets/images/logo.png'
 
 export default {
   name: "Admin.vue",

@@ -1,7 +1,7 @@
 <script>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import logo from '@/assets/logo.png';
+import logo from '@/assets/images/logo.png';
 import axios from "axios";
 
 

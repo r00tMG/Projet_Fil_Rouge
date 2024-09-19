@@ -1,6 +1,6 @@
 <script>
 import Dropdown from '@/components/Dropdown.vue'
-import logo from '@/assets/logo.png'
+import logo from '@/assets/images/logo.png'
 export default {
   name: 'Navbar',
   components: { Dropdown },

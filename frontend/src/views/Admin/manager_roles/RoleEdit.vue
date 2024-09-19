@@ -2,7 +2,7 @@
 import {useRoute, useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
 import axios from "@/axios.js";
-import logo from '@/assets/logo.png';
+import logo from '@/assets/images/logo.png';
 import Swal from "sweetalert2";
 
 const route = useRoute()
