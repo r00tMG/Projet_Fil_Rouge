@@ -46,7 +46,7 @@
     /*left: 0;*/
     height: 100vh; /* Hauteur pleine de la vue */
     /*width: 250px;  Largeur de la sidebar */
-    background-color: #343a40;
+    background-color: #337447;
     color: white;
     /*padding-top: 20px;*/
 }
@@ -59,7 +59,7 @@
 }
 
 .sidebar a:hover {
-    background-color: #337447;
+    background-color: #007bff;
 }
 
 .main-content {
