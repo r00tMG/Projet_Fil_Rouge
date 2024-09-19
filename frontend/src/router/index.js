@@ -21,7 +21,7 @@ import FormPayment from "@/components/user/home/FormPayment.vue";
 import Success from "@/components/user/home/Success.vue";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     /*{
       path: "/search",

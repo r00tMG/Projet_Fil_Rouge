@@ -24,7 +24,7 @@ export default {
       console.log('Selected file:', photo_profile.value);
     }
     onMounted(async () => {
-      const r = await axios.get('/Backend/public/api/getRoles',{
+      const r = await axios.get('https://backend-mongp.mayaapps.site/api/getRoles',{
         headers: {
           'Accept':'application/json',
           //'Authorization':`Bearer ${token}`
@@ -47,7 +47,7 @@ export default {
       formData.append('roles', selectRoles.value)
       try{
 
-        const response = await axios.post('/Backend/public/api/register',formData,{
+        const response = await axios.post('https://backend-mongp.mayaapps.site/api/register',formData,{
           headers: {
             'Content-Type': 'multipart/form-data'
           },

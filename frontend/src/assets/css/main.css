@@ -8,7 +8,7 @@
     box-sizing: border-box;
     position: absolute;
     width: 896px;
-    height: calc(100% - 13vh);
+    height: 100vh;
     left: -404px;
     top: -65px;
     border: 1px solid rgba(188, 189, 237, 0.5);

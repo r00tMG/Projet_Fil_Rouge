@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import logo from '@/assets/images/logo.png';
 import axios from "axios";
+import Swal from "sweetalert2";
 
 
 export default {
@@ -14,7 +15,7 @@ export default {
     const errors = ref({})
     const onLogin = async () => {
       try{
-        const response = await axios.post('/Backend/public/api/login', {
+        const response = await axios.post('https://backend-mongp.mayaapps.site/api/login', {
             email: email.value,
             password: password.value
         },{
@@ -25,24 +26,19 @@ export default {
        if(data.token && (data.user.role[0].name === "admin") )
         {
           localStorage.setItem('token', data.token)
-          //localStorage.setItem('role',JSON.stringify(data.user.role))
           localStorage.setItem('data', JSON.stringify(data))
           await router.push('/users/index')
-          //console.log(data.user.role.length)
         }else if(data.token && ((data.user.role[0].name === "Client")||(data.user.role[0].name === "GP"))){
          console.log(data.user.role.length)
           localStorage.setItem('token', data.token)
-          //localStorage.setItem('role',JSON.stringify(data.user.role))
           localStorage.setItem('data',JSON.stringify(data))
-         //console.log(data.user)
-          //await router.push('/home')
          await checkUserProfile(data.token)
         }else {
-         Swal.fire({
-           title:'failed',
-           text:'Authentification échouée',
-           icon: 'failed',
-           confirmButtonText:'Réessayez'
+         await Swal.fire({
+           title: 'error',
+           text: 'Authentification échouée',
+           icon: 'error',
+           confirmButtonText: 'Réessayez'
          })
         }
       } catch (error) {
@@ -57,7 +53,7 @@ export default {
     }
     const profile = ref([])
     const checkUserProfile = async (tok) =>{
-      const r = await axios.get('/Backend/public/api/profiles',{
+      const r = await axios.get('/profiles',{
         headers:{
           'Accept':'application/json',
           'Authorization':`Bearer ${tok}`
