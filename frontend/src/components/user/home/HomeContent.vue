@@ -133,7 +133,7 @@ onMounted(async () => {
           </div>
         </div>
       </div>
-      <div class="card mb-3 w-50 m-5 m-auto border-success rounded" v-for="annonce in filteredAnnonces" :key="annonce.id">
+      <div class="bg-white mb-3 w-50 p-3 shadow m-auto border-success border rounded-5" v-for="annonce in filteredAnnonces" :key="annonce.id">
           <div class="card-header bg-white border-success">
             <div class="d-flex justify-content-between align-items">
               <div>
@@ -147,7 +147,7 @@ onMounted(async () => {
           </div>
           <div class="row">
           <div class="col-md-10">
-            <div class="card-body border">
+            <div class="card-body border-success rounded-5 shadow border">
               <div class="row p-5">
                 <div class="col-md-3">
                   <h4 class="card-title">Départ</h4>

@@ -1,17 +1,9 @@
 <script setup>
-
+import logo from '@/assets/logo.png'
 </script>
 
 <template>
-<!--  <footer class="text-body-secondary py-5">
-    <div class="container">
-      <p class="float-end mb-1">
-        <a href="#">Back to top</a>
-      </p>
-      <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-      <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.3/getting-started/introduction/">getting started guide</a>.</p>
-    </div>
-  </footer>-->
+
   <footer class="">
 <!--    <div class="row">
       <div class="col-6 col-md-2 mb-3">
@@ -60,9 +52,12 @@
       </div>
     </div>-->
 
-    <section class="text-center  border-top">
-      <p class="p-1">&copy; 2024 Company, Inc. All rights reserved.</p>
-      <p class="p-1">Prod By <span class="text-muted">@root</span></p>
+    <section class="d-flex justify-content-between align-items border-top bg-success  text-light">
+      <router-link to="/">
+        <img :src="logo" alt="Logo" width="60" height="60">
+        MonGP
+      </router-link>
+      <p class="">&copy; 2024 Company, Inc. All rights reserved. Prod By <span class="text-muted">@root</span></p>
     </section>
   </footer>
 </template>
