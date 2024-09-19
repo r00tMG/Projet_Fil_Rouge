@@ -113,7 +113,7 @@ export default {
         </div>
       </div>
     </div>
-    <div class="col-md-9 main-content w-80 m-auto">
+    <div class="col-md-9  w-80 m-auto">
       <router-view />
     </div>
   </div>
