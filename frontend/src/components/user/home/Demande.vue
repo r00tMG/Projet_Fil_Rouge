@@ -176,7 +176,7 @@ onMounted(async () => {
           </div>
         </div>
       </div>
-      <div class="col-md-4 bg-success  " id="panier">
+      <div class="col-md-4 bg-success  " id="panier" style="height: 100vh">
         <h3 class="text-light p-3 mt-4">Mon panier</h3>
       </div>
     </div>
