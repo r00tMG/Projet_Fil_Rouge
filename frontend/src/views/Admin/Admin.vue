@@ -8,6 +8,7 @@ import NavTabs from "@/components/admin/NavTabs.vue";
 import TableRole from "@/components/admin/TableRole.vue";
 import Sidebar from "@/components/admin/Sidebar.vue";
 import router from "@/router/index.js";
+import logo from '@/assets/logo.png'
 
 export default {
   name: "Admin.vue",
@@ -27,7 +28,8 @@ setup(){
     }
   }
   return {
-    handleLogout
+    handleLogout,
+    logo
   }
 }
 }
@@ -40,7 +42,9 @@ setup(){
     <div >
       <nav class="navbar bg-body-light navbar-top p-2">
         <div class="container-fluid">
-          <router-link to="/" class="navbar-brand title text-center fs-1">Admin</router-link>
+          <router-link to="/" class="navbar-brand title text-center text-success fs-1">
+            <img :src="logo" alt="Logo">
+            Admin</router-link>
           <ul class="d-flex p-2">
             <li>
               <a href="#message">
