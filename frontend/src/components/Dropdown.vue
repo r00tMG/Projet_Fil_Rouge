@@ -18,7 +18,7 @@ export default {
         localStorage.removeItem('token')
         localStorage.removeItem('data')
         //console.log(token)
-        await router.push('/');
+        await router.push('/login');
       } catch (error) {
         console.log('Salut')
         console.error('Logout failed:', error);
@@ -44,9 +44,7 @@ export default {
         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
       </svg>
-
     </div>
-
     <input type="checkbox" class="dd-input" id="test">
     <ul class="dd-menu" v-if="data && data.token">
       <div class="d-flex flex-column align-items-center border-bottom px-5 py-3">
@@ -58,7 +56,7 @@ export default {
           <p class="tx-12 text-dark">{{data.user.email}}</p>
         </div>
         <li class="dropdown-item py-2">
-          <router-link to="/profile" href="#" class="text-body ms-0">
+          <router-link to="/profile/index" href="#" class="text-body ms-0">
             <i class="me-2 icon-md" data-feather="user"></i>
             <span class="text-dark">Profile</span>
           </router-link>

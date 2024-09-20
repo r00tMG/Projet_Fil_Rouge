@@ -5,6 +5,7 @@ import {onMounted, ref} from "vue";
 import axios from "@/axios.js";
 import {useRoute} from "vue-router";
 import SectionHomeContent from "@/components/user/home/SectionHomeContent.vue";
+import Swal from "sweetalert2";
 const annonce = ref([])
 const errors = ref({})
 const route = useRoute()
@@ -13,7 +14,6 @@ const user_id = ref('')
 const kilos_demandes = ref('')
 const panier = ref('')
 const data = JSON.parse(localStorage.getItem('data'))
-//console.log(data.user.id)
 const onDemander = async () => {
   try {
     const response = await axios.post('/demandes',{
@@ -31,9 +31,21 @@ const onDemander = async () => {
     if (response.data.status === 400) {
       errors.value = response.data.errors;
       console.log(response.data.message);
+      await Swal.fire({
+        title:'error',
+        text:response.data.message,
+        icon:'error',
+        confirmButton:'Ok'
+      })
     } else {
       localStorage.setItem('maDemande',JSON.stringify(demande))
       console.log(response.data.message);
+      await Swal.fire({
+        title:'success',
+        text:'Votre réservation a été bien enregistrée',
+        icon:'success',
+        confirmButton:'Ok'
+      })
     }
 
     const panierElement = document.querySelector('#panier');
@@ -97,8 +109,20 @@ const onDemander = async () => {
     if (error.response && error.response.status === 400) {
       errors.value = error.response.data.errors;
       console.error("Validation errors:", errors.value);
+      await Swal.fire({
+        title:'error',
+        text:errors.value,
+        icon:'error',
+        confirmButton:'Ok'
+      })
     } else {
       console.error("Error: La requête a échoué", error);
+      await Swal.fire({
+        title:'error',
+        text:error,
+        icon:'error',
+        confirmButton:'Ok'
+      })
     }
   }
 }
@@ -166,7 +190,7 @@ onMounted(async () => {
                     </div>
                     <div class="row">
                       <div class="d-flex flex-direction form-group mb-3">
-                        <button type="submit" @click="" class="btn btn-success rounded-5">Demander</button>
+                        <button type="submit" @click="" class="btn btn-success rounded-5">Réserver</button>
                       </div>
                     </div>
                   </form>
@@ -186,26 +210,3 @@ onMounted(async () => {
     <FooterHome />
   </div>
 </template>
-<!--
-<script>
-  //await nextTick();
-
-    const demande = JSON.parse(localStorage.getItem('demande'))
-    const panier = document.querySelector('#panier')
-    const content = document.createElement('div')
-    content.setAttribute('class', 'container p-2 mt-5 w-75')
-    content.innerHTML = `
-      <div class="card " style="width: 18rem;">
-        <div class="card-body">
-          <p class="card-title">Aller le </p>
-          <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>
-      </div>
-    `
-    panier.append(content)
-    console.log(panier)
-
-</script>-->

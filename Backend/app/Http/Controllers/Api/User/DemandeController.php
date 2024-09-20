@@ -17,9 +17,10 @@ class DemandeController extends Controller
     {
         $demandes = Demande::where('user_id', auth()->id())->orWhereHas('annonce', function ($query) {
             $query->where('gp_id', auth()->id());
-        })->with('annonce')->get();
+        })->with('annonce')->orderBy('created_at','DESC')->get();
+            logger('demandes',['demandes'=>$demandes]);
 
-        return response()->json($demandes);
+        return response()->json(DemandeResource::collection($demandes));
     }
 
     public function show(string $id)

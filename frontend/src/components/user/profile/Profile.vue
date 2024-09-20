@@ -107,6 +107,10 @@ export default {
           <router-link to="/annonces/index" :class="{ active: $route.path === `/annonces/index` }" v-if="roleName.name === 'GP' " >Annonces</router-link>
           <hr align="center">
         </div>
+        <div class="url" v-for="roleName in profile.user.roles">
+          <router-link to="/demandes/index" :class="{ active: $route.path === `/demandes/index` }" v-if="roleName.name === 'GP' || roleName.name === 'Client'" >Réservations</router-link>
+          <hr align="center">
+        </div>
         <div class="url">
           <a href="#settings">Settings</a>
           <hr align="center">

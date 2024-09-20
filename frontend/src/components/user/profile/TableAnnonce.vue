@@ -18,7 +18,7 @@ onMounted(async () => {
 <template>
   <div class="mt-5">
       <div class="d-flex justify-content-between my-2">
-        <h4>Liste des annonces</h4>
+        <h4 class="text-success">Mes annonces</h4>
         <router-link to="/annonces/create" class="btn btn-sm btn-success ">Create</router-link>
       </div>
     <div class=" table-responsive">

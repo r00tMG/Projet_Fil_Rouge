@@ -19,9 +19,11 @@ import TableAnnonce from "@/components/user/profile/TableAnnonce.vue";
 import Demande from "@/components/user/home/Demande.vue";
 import FormPayment from "@/components/user/home/FormPayment.vue";
 import Success from "@/components/user/home/Success.vue";
+import DemandeIndex from "@/components/user/profile/DemandeIndex.vue";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  //import.meta.env.BASE_URL
+  history: createWebHistory(),
   routes: [
     /*{
       path: "/search",
@@ -33,7 +35,6 @@ const router = createRouter({
       //redirect: "/dashboard",
       meta:{requiresAuth:true},
       children: [
-
         {
           path: '/users/:id/edit',
           name: 'users.edit',
@@ -140,6 +141,12 @@ const router = createRouter({
           path: '/annonces/create',
           name: 'annonces.create',
           component: CreateAnnonce,
+          meta: { requiresAuth: true }
+        },
+        {
+          path: '/demandes/index',
+          name: 'demandes.index',
+          component: DemandeIndex,
           meta: { requiresAuth: true }
         },
         {

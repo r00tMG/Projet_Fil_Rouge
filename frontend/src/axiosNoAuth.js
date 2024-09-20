@@ -8,3 +8,4 @@ const apiInstance = axios.create({
         'Accept': 'application/json'
     }
 });
+export default apiInstance;
