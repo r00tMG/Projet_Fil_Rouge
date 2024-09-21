@@ -26,36 +26,38 @@ export default {
     const payment_intent_id = ref('')
     const total = ref('')
     const email = ref('')
-    let clientSecret = ref('')
     const route = useRoute()
     const router = useRouter()
     const initializeStripe = () => {
       stripe.value = Stripe('pk_test_51PxoVZBrhUmW23Q4V3daDnZ6G2miRhZwMFYsf4kzvHmID1tMknp5TRECvdixuCu79g7CdhE3eqgorNdAIW65fg8400nnwAbyy0');
       //console.log(stripe.value)
       elements.value = stripe.value.elements();
-//console.log(elements.value)
+      //console.log(elements.value)
       cardElement.value = elements.value.create('card');
       cardElement.value.mount('#card-element');
     };
 
     onMounted( async () => {
-
+      const response = await axios.get(`demandes/${route.params.id}`,{
+        headers:{
+          'Authorization':`Bearer ${localStorage.getItem('token')}`
+        }
+      })
+      const demande = await response.data
+      console.log(demande)
       initializeStripe();
     });
 //console.log(JSON.parse(localStorage.getItem('maDemande')).prix_de_la_demande)
     const handleSubmit = async () => {
       processing.value = true;
-      if (JSON.parse(localStorage.getItem('maDemande')))
-      {
+
         const { data } = await axios.post('/payment-intent', {
           amount: JSON.parse(localStorage.getItem('maDemande')).prix_de_la_demande,
           headers:{
             'Authorization':`Bearer ${localStorage.getItem('token')}`
           }
         });
-       clientSecret = data.clientSecret;
-      }
-
+       const clientSecret = data.clientSecret;
       console.log(clientSecret)
       const result = await stripe.value.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -69,8 +71,7 @@ export default {
       } else {
         if (result.paymentIntent.status === 'succeeded') {
           //console.log(JSON.parse(localStorage.getItem('maDemande')).client.email)
-          if (JSON.parse(localStorage.getItem('maDemande')))
-          {
+
             const r =  await axios.post('create/orders',{
               payment_intent_id:clientSecret,
               total:JSON.parse(localStorage.getItem('maDemande')).prix_de_la_demande,
@@ -90,16 +91,6 @@ export default {
               localStorage.removeItem('maDemande')
               await router.push('/payment/success')
             }
-          }else{
-            const response = await axios.get(`demandes/${route.params.id}`,{
-              headers:{
-                'Authorization':`Bearer ${localStorage.getItem('token')}`
-              }
-            })
-            let demande = await response.data
-            console.log(demande)
-          }
-
         }
         processing.value = false;
       }
