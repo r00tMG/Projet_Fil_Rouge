@@ -144,7 +144,7 @@ onMounted(async () => {
     <div class="album row m-4">
       <div class="col-md-8">
         <div class="container  p-5 w-100 m-auto rounded-5 shadow ">
-          <h4 class="w-50 text-center text-light rounded-5 m-auto my-5 bg-success p-3">Acheter mes poids par Kg</h4>
+          <h4 class="w-50 text-center text-light rounded-5 m-auto my-5 bg-success p-3">Réserver votre poids(Kg)</h4>
           <div class="row">
             <div class="col" v-if="annonce">
               <div class="card rounded-5 shadow-sm">
@@ -200,13 +200,13 @@ onMounted(async () => {
           </div>
         </div>
       </div>
-      <div class="col-md-4 bg-success " id="panier" style="height: 100vh">
+    </div>
+      <div class="col-md-4 bg-success px-0" id="panier" style="height: 100vh">
         <h3 class="text-light p-3 mt-4">Mon panier</h3>
       </div>
-    </div>
 
   </main>
-  <div class="container">
+  <div class="container-fluid px-0">
     <FooterHome />
   </div>
 </template>

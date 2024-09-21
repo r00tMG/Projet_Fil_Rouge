@@ -25,7 +25,8 @@ export default {
     const processing = ref(false);
     const payment_intent_id = ref('')
     const total = ref('')
-        const email = ref('')
+    const email = ref('')
+    let clientSecret = ref('')
     const route = useRoute()
     const router = useRouter()
     const initializeStripe = () => {
@@ -37,21 +38,24 @@ export default {
       cardElement.value.mount('#card-element');
     };
 
-    onMounted( () => {
+    onMounted( async () => {
+
       initializeStripe();
     });
 //console.log(JSON.parse(localStorage.getItem('maDemande')).prix_de_la_demande)
     const handleSubmit = async () => {
       processing.value = true;
+      if (JSON.parse(localStorage.getItem('maDemande')))
+      {
+        const { data } = await axios.post('/payment-intent', {
+          amount: JSON.parse(localStorage.getItem('maDemande')).prix_de_la_demande,
+          headers:{
+            'Authorization':`Bearer ${localStorage.getItem('token')}`
+          }
+        });
+       clientSecret = data.clientSecret;
+      }
 
-      const { data } = await axios.post('/payment-intent', {
-        amount: JSON.parse(localStorage.getItem('maDemande')).prix_de_la_demande,
-        headers:{
-          'Authorization':`Bearer ${localStorage.getItem('token')}`
-        }
-      });
-
-      const clientSecret = data.clientSecret;
       console.log(clientSecret)
       const result = await stripe.value.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -64,31 +68,43 @@ export default {
         processing.value = false;
       } else {
         if (result.paymentIntent.status === 'succeeded') {
-          console.log(JSON.parse(localStorage.getItem('maDemande')).client.email)
-          const r =  await axios.post('create/orders',{
+          //console.log(JSON.parse(localStorage.getItem('maDemande')).client.email)
+          if (JSON.parse(localStorage.getItem('maDemande')))
+          {
+            const r =  await axios.post('create/orders',{
               payment_intent_id:clientSecret,
               total:JSON.parse(localStorage.getItem('maDemande')).prix_de_la_demande,
               demande_id:route.params.id,
-            email:JSON.parse(localStorage.getItem('maDemande')).client.email
-          },{
-            headers:{
-              'Authorization':`Bearer ${localStorage.getItem('token')}`
+              email:JSON.parse(localStorage.getItem('maDemande')).client.email
+            },{
+              headers:{
+                'Authorization':`Bearer ${localStorage.getItem('token')}`
+              }
+            })
+            const order = await r.data
+            console.log(order)
+            console.log(JSON.parse(localStorage.getItem('maDemande')).client.email)
+            if (order)
+            {
+              localStorage.setItem('order',JSON.stringify(order))
+              localStorage.removeItem('maDemande')
+              await router.push('/payment/success')
             }
-          })
-          const order = await r.data
-          console.log(order)
-          console.log(JSON.parse(localStorage.getItem('maDemande')).client.email)
-          if (order)
-          {
-            localStorage.setItem('order',JSON.stringify(order))
-            localStorage.removeItem('maDemande')
-            await router.push('/payment/success')
+          }else{
+            const response = await axios.get(`demandes/${route.params.id}`,{
+              headers:{
+                'Authorization':`Bearer ${localStorage.getItem('token')}`
+              }
+            })
+            let demande = await response.data
+            console.log(demande)
           }
+
         }
         processing.value = false;
       }
     };
-    //console.log(route.params.id)
+    console.log(route.params.id)
 
     return {
       handleSubmit,
