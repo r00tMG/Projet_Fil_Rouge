@@ -28,6 +28,7 @@ export default {
     const email = ref('')
     const route = useRoute()
     const router = useRouter()
+    const demande = ref({})
     const initializeStripe = () => {
       stripe.value = Stripe('pk_test_51PxoVZBrhUmW23Q4V3daDnZ6G2miRhZwMFYsf4kzvHmID1tMknp5TRECvdixuCu79g7CdhE3eqgorNdAIW65fg8400nnwAbyy0');
       //console.log(stripe.value)
@@ -43,8 +44,8 @@ export default {
           'Authorization':`Bearer ${localStorage.getItem('token')}`
         }
       })
-      const demande = await response.data
-      console.log(demande)
+       demande.value = await response.data
+      console.log(demande.value)
       initializeStripe();
     });
 //console.log(JSON.parse(localStorage.getItem('maDemande')).prix_de_la_demande)
