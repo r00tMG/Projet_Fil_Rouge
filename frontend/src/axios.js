@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: 'https://backend-mongp.mayaapps.site/api'
+  baseURL: 'https://backend-mongp.mayaapps.site/api',
+  //timeout: 10000
 });
 instance.interceptors.request.use(config => {
   const token = localStorage.getItem('token');

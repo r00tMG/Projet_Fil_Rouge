@@ -4,6 +4,7 @@ import axios from "@/axios.js";
 import {useRouter} from "vue-router";
 import logo from '@/assets/images/logo.png';
 import Swal from "sweetalert2";
+import Loader from "@/components/Loader.vue";
 const kilos_disponibles = ref('')
 const date_depart = ref('')
 const date_arrivee = ref('')
@@ -14,6 +15,8 @@ const prix_du_kilo = ref('')
 const annonce = ref([])
 const errors = ref({})
 const router = useRouter()
+const isLoading = ref(false)
+
 //console.log(localStorage.getItem('token'))
 const onSubmit = async () => {
   try {
@@ -65,6 +68,8 @@ const onSubmit = async () => {
 </script>
 
 <template>
+  <Loader  :isLoading="isLoading"/>
+
   <div class="container  rounded-4 shadow border border-success ">
     <div class="p-3 w-100">
       <p class="tulisan_login">Publier une annonce</p>
@@ -113,7 +118,6 @@ const onSubmit = async () => {
             <p v-if="errors.description" class="text-danger">{{errors.description[0]}}</p>
           </div>
         </div>
-
         <input type="submit" class="tombol_login" value="Publier">
       </form>
 
@@ -162,7 +166,7 @@ label {
 }
 
 .tombol_login {
-  background: green;
+  background: #3D8854;
   color: white;
   font-size: 11pt;
   width: 100%;

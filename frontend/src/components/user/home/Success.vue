@@ -2,9 +2,12 @@
 import axios from "@/axios.js";
 import {ref} from "vue";
 import Swal from "sweetalert2";
+import Loader from "@/components/Loader.vue";
 const order  = JSON.parse(localStorage.getItem('order'))
 const orderId = order.order.id
 const invoice_url = ref('')
+const isLoading = ref(false)
+
 const onUploads = async () => {
   const r = await axios.get(`/invoice/${orderId}`,{
     headers:{
@@ -23,6 +26,7 @@ const onUploads = async () => {
 </script>
 
 <template>
+  <Loader  :isLoading="isLoading"/>
 <div class="container w-50 m-5 m-auto">
   <div class="container border border-success rounded-4 shadow p-5 m-5">
     <h1 class="text-center">Merci pour votre achat !</h1>

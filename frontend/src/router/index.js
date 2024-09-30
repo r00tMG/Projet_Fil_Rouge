@@ -20,15 +20,14 @@ import Demande from "@/components/user/home/Demande.vue";
 import FormPayment from "@/components/user/home/FormPayment.vue";
 import Success from "@/components/user/home/Success.vue";
 import DemandeIndex from "@/components/user/profile/DemandeIndex.vue";
+import TableOrder from "@/components/admin/TableOrder.vue";
+import Search from "@/components/user/home/Search.vue";
+import Messagerie from "@/components/user/profile/Message/Messagerie.vue";
 
 const router = createRouter({
   //import.meta.env.BASE_URL
   history: createWebHistory(),
   routes: [
-    /*{
-      path: "/search",
-      component: Search
-    },*/
     {
       path: "/admin",
       component: Admin,
@@ -70,6 +69,12 @@ const router = createRouter({
           name: 'roles.index',
           component: TableRole,
           meta:{requiresAuth:true}
+        },
+        {
+          path: '/orders/index',
+          name: 'orders.index',
+          component: TableOrder,
+          meta:{requiresAuth:true}
         }
       ]
     },
@@ -82,6 +87,11 @@ const router = createRouter({
           name: 'home',
           component: HomeContent,
           meta: { requiresAuth: false }
+        },
+        {
+          path:'/search/annonces',
+          name:'search',
+          component: Search
         },
         {
           path: '/annonces/:id',
@@ -110,8 +120,7 @@ const router = createRouter({
           path: '/register',
           name: 'register',
           component: Register
-        },
-
+        }
       ]
     },
     {
@@ -126,8 +135,8 @@ const router = createRouter({
       meta: { requiresAuth: true },
       children: [
         {
-          path: '/profile/index',
-          name: 'profile.index',
+          path: '',
+         // name: 'profile.index',
           component: TableProfile,
           meta: { requiresAuth: true }
         },
@@ -155,6 +164,18 @@ const router = createRouter({
           component: TableAnnonce,
           meta: { requiresAuth: true }
         },
+        {
+          path: '/messages',
+          component: Messagerie,
+          meta: {requiresAuth: true},
+        },
+        {
+          path: '/messages/:id/:title',
+          name: 'message.show',
+          component: Messagerie,
+          meta: {requiresAuth: true}
+        }
+
       ]
     }
 

@@ -1,9 +1,9 @@
 <script>
 import { onMounted, ref } from 'vue'
-import axios from 'axios'
 import { useRouter } from 'vue-router'
 import logo from '@/assets/images/logo.png';
 import Swal from "sweetalert2";
+import axiosNoAuth from "@/axiosNoAuth.js";
 
 export default {
   name: 'Register',
@@ -24,7 +24,7 @@ export default {
       console.log('Selected file:', photo_profile.value);
     }
     onMounted(async () => {
-      const r = await axios.get('https://backend-mongp.mayaapps.site/api/getRoles',{
+      const r = await axiosNoAuth.get('/getRoles',{
         headers: {
           'Accept':'application/json',
           //'Authorization':`Bearer ${token}`
@@ -46,20 +46,23 @@ export default {
       }
       formData.append('roles', selectRoles.value)
       try{
-
-        const response = await axios.post('https://backend-mongp.mayaapps.site/api/register',formData,{
+        const response = await axiosNoAuth.post('/register',formData,{
           headers: {
             'Content-Type': 'multipart/form-data'
           },
         })
-
          data.value = response.data
         if (response.data.status === 400) {
           errors.value = response.data.errors;
-          alert(response.data.message);
+          await Swal.fire({
+            title: 'error',
+            text: response.data.message,
+            icon: 'error',
+            confirmButton: 'Ok'
+          })
         } else {
-          Swal.fire({
-            title: 'Succés',
+          await Swal.fire({
+            title: 'success',
             text: response.data.message,
             icon: 'success',
             confirmButton: 'Ok'
@@ -95,9 +98,9 @@ export default {
 
 <template>
 <div class="container">
-  <div class="row border rounded-1 m-5 shadow border-success">
+  <div class="row border rounded-1 m-5 shadow-sm border-success">
     <div class=" bg-success col-md-6">
-      <h1 class="tulisan_login text-center text-light mt-5">Register</h1>
+      <h1 class="tulisan_login text-center m-auto text-light mt-5">Register</h1>
     </div>
     <div class="col-md-6">
       <div class="p-4  w-100">
@@ -106,7 +109,7 @@ export default {
           <div class="row">
             <div class="col-md-6">
               <div class="form-group mb-3">
-              <label>name</label>
+              <label>Name</label>
               <input type="text" v-model="name" name="name" class="form_login" placeholder="Name..">
               <div v-if="errors.name" class="text-danger">{{ errors.name[0] }}</div>
             </div>
@@ -202,7 +205,7 @@ label {
 }
 
 .tombol_login {
-  background: green;
+  background: #3D8854;
   color: white;
   font-size: 11pt;
   width: 100%;

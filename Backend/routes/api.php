@@ -25,9 +25,10 @@ Route::get('getRoles',[RoleController::class,'getRoles']);
 Route::get('annonce_on_home', [\App\Http\Controllers\Api\HomeController::class, 'index']);
 
 # Private Endpoint
-#Route::get('getUsers',[UserController::class,'getUsers']);
 
 Route::group(['middleware' => ['auth:sanctum']], function (){
+
+    Route::get('getUsers',[UserController::class,'getUsers']);
     Route::apiResource('users',UserController::class);
 
     Route::apiResource('roles',RoleController::class);
@@ -38,13 +39,20 @@ Route::group(['middleware' => ['auth:sanctum']], function (){
 
     Route::apiResource('annonces', \App\Http\Controllers\Api\User\AnnonceController::class);
 
-    Route::get('/messages/{id}', [MessageController::class, 'index']);
+    Route::get('/messages/{userId}', [MessageController::class, 'index']);
     Route::post('/messages', [MessageController::class, 'store']);
+    Route::get('/messages/unread/{userId}', [MessageController::class, 'getUnreadMessagesCount']);
+    Route::put('/messages/mark-as-read/{userId}', [MessageController::class, 'markMessagesAsRead']);
+
+
 
     Route::apiResource('demandes',\App\Http\Controllers\Api\User\DemandeController::class);
 
     Route::post('/payment-intent', [\App\Http\Controllers\Api\Paiement\PaiementController::class, 'createPaymentIntent']);
+
     Route::post('create/orders',[\App\Http\Controllers\Api\Paiement\PaiementController::class,'storeOrder']);
+    Route::get('index/orders',[\App\Http\Controllers\Api\Paiement\PaiementController::class,'index']);
+    Route::get('index/ordersBy',[\App\Http\Controllers\Api\Paiement\PaiementController::class,'getOrderBy']);
 
     Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
     Route::post('create-checkout-session', [\App\Http\Controllers\Api\Paiment\StripeController::class, 'createCheckoutSession']);

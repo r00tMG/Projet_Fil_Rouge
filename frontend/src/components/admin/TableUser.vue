@@ -2,7 +2,10 @@
 import {onMounted, ref} from "vue";
 import axios from "@/axios.js";
 import Swal from "sweetalert2";
+import Loader from "@/components/Loader.vue";
 const users = ref([])
+const isLoading = ref(false)
+
   onMounted(async () => {
     const r = await axios.get('/users',{
       headers:{
@@ -14,20 +17,20 @@ const users = ref([])
     console.log(users.value)
   })
   const onDelete = async (id) => {
-    //console.log(id)
+    console.log(id)
     if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
       const r = await axios.delete(`/users/${id}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       })
-      const data = r.data
-      Swal.fire({
+      const data = await r.data
+      console.log(data)
+      await Swal.fire({
         title:'success',
         text: data.message,
         icon:'success',
         confirmButton: 'Ok'
-
       })
     }
   }
@@ -35,13 +38,15 @@ const users = ref([])
 </script>
 
 <template>
+  <Loader  :isLoading="isLoading"/>
+
   <div class="mt-5">
     <div class="d-flex justify-content-between my-2">
-      <h4>Liste des users</h4>
+      <h4 class="text-success">Liste des users</h4>
       <router-link to="/users" class="btn btn-sm btn-success">Create</router-link>
     </div>
     <div class="table-responsive">
-      <table class="table table-bordered  table-striped">
+      <table class="table table-bordered table-striped">
         <thead class="table-success">
         <tr>
           <th colspan="2">Name</th>
@@ -65,12 +70,16 @@ const users = ref([])
             <span class="badge bg-primary p-1">Aucun role</span>
           </td>
           <td colspan="4" >
-            <button class="btn btn-sm btn-danger me-1" @click="onDelete(user.id)">Delete</button>
-            <router-link :to="`/users/${user.id}/edit`" class="btn btn-sm btn-success">Edit</router-link>
+            <button class="btn btn-sm btn-danger me-1" @click="onDelete(user.id)">
+              Delete
+            </button>
+            <router-link :to="`/users/${user.id}/edit`" class="btn btn-sm btn-success">
+              Edit
+            </router-link>
           </td>
         </tr>
         <tr v-else>
-          Loading...
+          <p class="text-light text-center bg-danger p-5 rounded-5 ">Aucun utilisateur n'a été trouvé</p>
         </tr>
         </tbody>
       </table>

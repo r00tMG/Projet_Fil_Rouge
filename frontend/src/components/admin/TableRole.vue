@@ -1,7 +1,10 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import axios from "@/axios.js";
+import Loader from "@/components/Loader.vue";
 const roles = ref([])
+const isLoading = ref(false)
+
   onMounted(async () => {
     const r = await axios.get('/roles',{
       headers:{
@@ -30,9 +33,11 @@ const onDelete = async (id) =>{
 </script>
 
 <template>
+  <Loader  :isLoading="isLoading"/>
+
   <div class="mt-5">
     <div class="d-flex justify-content-between my-2">
-      <h4>Liste des roles</h4>
+      <h4 class="text-success">Liste des roles</h4>
       <router-link to="/roles" class="btn btn-sm btn-success ">Create</router-link>
     </div>
     <div class="table-responsive">
@@ -59,7 +64,7 @@ const onDelete = async (id) =>{
           </td>
         </tr>
         <tr v-else>
-          Loading...
+          <p class="text-light text-center bg-danger p-5 rounded-5 ">Aucune résarvation n'a été trouvé</p>
         </tr>
         </tbody>
       </table>

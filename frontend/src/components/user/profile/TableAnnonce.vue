@@ -1,8 +1,11 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import axios from "@/axios.js";
+import Loader from "@/components/Loader.vue";
 
 const annonces = ref([])
+const isLoading = ref(true)
+
 onMounted(async () => {
   const r = await axios.get('/annonces',{
     headers: {
@@ -25,15 +28,15 @@ onMounted(async () => {
       <table class="table table-bordered table-striped">
         <thead class="table-success">
           <tr>
-            <th class="text-center px-2">Auteur</th>
+            <th class="text-center px-2">GP</th>
             <th class="text-center px-2">Disponibles(Kg)</th>
             <th class="text-center px-2">Départ</th>
             <th class="text-center px-2">Arrivée</th>
             <th class="text-center px-2">Description</th>
           </tr>
         </thead>
-        <tbody >
-          <tr v-if="annonces" v-for="annonce in annonces">
+        <tbody>
+          <tr v-if="annonces.length !==0" v-for="annonce in annonces">
             <td class="text-center" v-text="annonce.user.name"></td>
             <td class="text-center" v-text="annonce.kilos_disponibles"></td>
             <td class="text-center" v-text="annonce.date_depart"></td>

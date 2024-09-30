@@ -36,7 +36,7 @@ class PaiementController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'payment_intent_id' => ['required','string'],
-            'total' => ['required','integer'],
+            'total' => ['required'],
             'demande_id' => ['required', 'integer'],
             'email' => ['required', 'email']
         ]);
@@ -80,6 +80,23 @@ class PaiementController extends Controller
            'order' => new OrderResource($order)
         ]);
 
+    }
+
+    public function index()
+    {
+        $orders = Order::orderBy('created_at','DESC')->get();
+        return \response()->json([
+            'message' => 'Vos commandes',
+            'orders' => OrderResource::collection($orders)
+        ]);
+    }
+    public function getOrderBy()
+    {
+        $orders = Order::with('demande')->orderBy('created_at','DESC')->get();
+        return \response()->json([
+            'message' => 'Vos commandes',
+            'orders' => OrderResource::collection($orders)
+        ]);
     }
     public function generateInvoice($orderId)
     {

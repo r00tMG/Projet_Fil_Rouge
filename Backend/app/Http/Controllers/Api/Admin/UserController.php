@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Admin\UserResource;
+use App\Models\Annonce;
+use App\Models\Demande;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -26,7 +30,23 @@ class UserController extends Controller
 
     public function getUsers()
     {
-        return UserResource::collection(User::all());
+        $user = auth()->user();
+        //dd($user);
+        if (!$user)
+        {
+            return response()->json([
+                'status' => Response::HTTP_UNAUTHORIZED,
+                'message' => "Unauthorized",
+            ]);
+        }
+        $users = User::where('id','!=',$user->id)->get();
+
+        return response()->json([
+            'status' => Response::HTTP_OK,
+            'message' => "Ceci est la liste des utilisateurs",
+            'storage' => asset('storage'),
+            'users' => UserResource::collection($users)
+        ]);
     }
     /**
      * Display a listing of the resource.
@@ -133,7 +153,6 @@ class UserController extends Controller
             'storage' => asset('storage'),
             'user' => new UserResource($user)
         ]);
-        #return view('admin.users.show',compact('user'));
     }
 
 
@@ -205,88 +224,35 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        if ($id == null)
-        {
+        if ($id == null) {
             return response()->json([
                 'status' => Response::HTTP_NO_CONTENT,
                 'message' => "Aucun utilisateur n'a été trouvé",
             ]);
         }
-        User::find($id)->delete();
+
+        $user = User::find($id);
+
+        $user->orders()->delete();
+        logger('orders deleted');
+
+        Demande::where('user_id', $id)->delete();
+        logger('demandes deleted');
+
+        $user->annonces()->delete();
+        logger('annonces deleted');
+
+        $user->profile()->delete();
+        logger('profile deleted');
+
+        $user->delete();
+        logger('user deleted');
+
         return response()->json([
             'status' => Response::HTTP_NO_CONTENT,
             'message' => "Votre utilisateur a été supprimé",
         ]);
-        return redirect()->route('users.index')->with('success','User deleted successfully');
     }
-    /*/*$validated = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed'],
-            'roles' => ['required'],
-            'photo_profile' => ['required', 'file', 'mimes:jpeg,png,jpg,gif,svg']
-        ]);
-        #
-        if ($request->hasFile('photo_profile')) {
-            logger('File uploaded:', [
-                'original_name' => $request->file('photo_profile')->getClientOriginalName(),
-                'mime_type' => $request->file('photo_profile')->getMimeType(),
-                'size' => $request->file('photo_profile')->getSize(),
-            ]);
-        } else {
-            logger('No file received');
-        }
-        logger('Request received', [$request->all(), $request->file('photo_profile')]);
-        logger('check validation',[$validated->fails()]);
-        if ($validated->fails())
-        {
-            return \response()->json([
-                'status' => Response::HTTP_BAD_REQUEST,
-                'message' => 'Error request',
-                'errors' => $validated->errors()
-            ]);
-        }
-        logger('Validation passed, file received', ['file' => $request->file('photo_profile')]);
-
-        $input = $validated->getData();
-        logger('all request validated', [$validated->getData()]);
-        $user = User::find($id);
-        logger('check get user', [$user]);
-        if ($user == null)
-        {
-            return response()->json([
-                'status' => Response::HTTP_NO_CONTENT,
-                'message' => "Aucun utilisateur n'a été trouvé",
-            ]);
-        }
-        if ($request->hasFile('photo_profile')) {
-            // Supprimer l'ancien fichier si nécessaire
-            if ($user->photo_profile && Storage::exists($user->photo_profile)) {
-                Storage::delete($user->photo_profile);
-            }
-            $input['photo_profile'] = $request->file('photo_profile')->store('profiles');
-        } else {
-            // Conserver l'ancien chemin de fichier
-            $input['photo_profile'] = $user->photo_profile;
-        }
-        logger('Image', ['image' => $input['photo_profile']]);
-        /*if ($request->hasFile('photo_profile')) {
-            $input['photo_profile'] = $request->file('photo_profile')->store('profiles');
-
-        }*/
-    /*if(!empty($input['password'])){
-        $input['password'] = Hash::make($input['password']);
-    }else{
-        $input = Arr::except($input,array('password'));
-    }
-    logger('all request', [$input]);
 
 
-    $user->update($input);
-    logger('Check user update', [$user]);
-    DB::table('model_has_roles')->where('model_id',$id)->delete();
-
-    $user->assignRole($request->input('roles'));
-    logger('check assign role', [$user]);
-    //dd($user);*/
 }

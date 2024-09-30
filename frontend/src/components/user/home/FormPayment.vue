@@ -1,5 +1,6 @@
 <template>
-  <div class="w-50 m-5 border rounded-4 p-5 border-success m-auto">
+  <Loader  :isLoading="isLoading"/>
+  <div class="w-50 m-5 border rounded-4 shadow p-5 border-success m-auto">
     <h4 class="bg-success p-3 text-center text-white rounded-4">Valider votre achat</h4>
     <form @submit.prevent="handleSubmit">
 
@@ -16,8 +17,11 @@
 import { ref, onMounted } from 'vue';
 import axios from '@/axios.js';
 import {useRoute, useRouter} from "vue-router";
+import Swal from "sweetalert2";
+import Loader from "@/components/Loader.vue";
 //4242 4242 4242 4242
 export default {
+  components: {Loader},
   setup() {
     const stripe = ref(null);
     const elements = ref(null);
@@ -29,6 +33,8 @@ export default {
     const route = useRoute()
     const router = useRouter()
     const demande = ref({})
+    const isLoading = ref(false);
+
     const initializeStripe = () => {
       stripe.value = Stripe('pk_test_51PxoVZBrhUmW23Q4V3daDnZ6G2miRhZwMFYsf4kzvHmID1tMknp5TRECvdixuCu79g7CdhE3eqgorNdAIW65fg8400nnwAbyy0');
       //console.log(stripe.value)
@@ -45,7 +51,18 @@ export default {
         }
       })
        demande.value = await response.data
-      console.log(demande.value)
+      //console.log(demande.value)
+      if (demande.value)
+      {
+        localStorage.setItem('maDemande',JSON.stringify(demande.value))
+      }else{
+        await Swal.fire({
+          title:'error',
+          text:'La réservation de vous tentez de valider n\'existe pas',
+          icon:'error',
+          confirmButton: 'Ok'
+        })
+      }
       initializeStripe();
     });
 //console.log(JSON.parse(localStorage.getItem('maDemande')).prix_de_la_demande)
@@ -101,6 +118,7 @@ export default {
     return {
       handleSubmit,
       processing,
+      isLoading
     };
   },
 };

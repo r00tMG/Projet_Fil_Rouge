@@ -6,6 +6,7 @@ import axios from "@/axios.js";
 import {useRoute} from "vue-router";
 import SectionHomeContent from "@/components/user/home/SectionHomeContent.vue";
 import Swal from "sweetalert2";
+import Loader from "@/components/Loader.vue";
 const annonce = ref([])
 const errors = ref({})
 const route = useRoute()
@@ -14,6 +15,8 @@ const user_id = ref('')
 const kilos_demandes = ref('')
 const panier = ref('')
 const data = JSON.parse(localStorage.getItem('data'))
+const isLoading = ref(false);
+
 const onDemander = async () => {
   try {
     const response = await axios.post('/demandes',{
@@ -58,7 +61,7 @@ const onDemander = async () => {
       <div class="card" style="background-color:darkgreen;">
         <div class="card-body">
           <div class="d-flex justify-content-between">
-              <p class="card-title text-light">
+              <p class="card-title text-center text-light">
                   <svg stroke="currentColor" class="" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                       <path d="M624 448H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h608c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16zM80.55 341.27c6.28 6.84 15.1 10.72 24.33 10.71l130.54-.18a65.62 65.62 0 0 0 29.64-7.12l290.96-147.65c26.74-13.57 50.71-32.94 67.02-58.31 18.31-28.48 20.3-49.09 13.07-63.65-7.21-14.57-24.74-25.27-58.25-27.45-29.85-1.94-59.54 5.92-86.28 19.48l-98.51 49.99-218.7-82.06a17.799 17.799 0 0 0-18-1.11L90.62 67.29c-10.67 5.41-13.25 19.65-5.17 28.53l156.22 98.1-103.21 52.38-72.35-36.47a17.804 17.804 0 0 0-16.07.02L9.91 230.22c-10.44 5.3-13.19 19.12-5.57 28.08l76.21 82.97z">
                       </path>
@@ -139,11 +142,11 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main>
-
-    <div class="album row m-4">
-      <div class="col-md-8">
-        <div class="container  p-5 w-100 m-auto rounded-5 shadow ">
+  <Loader  :isLoading="isLoading"/>
+  <div class="container-fluid px-0">
+    <div class="album d-flex">
+      <div class="w-75 rounded-circle-end-3">
+        <div class="container p-5 w-100 m-auto shadow">
           <h4 class="w-50 text-center text-light rounded-5 m-auto my-5 bg-success p-3">Réserver votre poids(Kg)</h4>
           <div class="row">
             <div class="col" v-if="annonce">
@@ -200,12 +203,12 @@ onMounted(async () => {
           </div>
         </div>
       </div>
-    </div>
-      <div class="col-md-4 bg-success px-0" id="panier" style="height: 100vh">
-        <h3 class="text-light p-3 mt-4">Mon panier</h3>
+      <div class="w-25 bg-success px-0" id="panier" >
+        <h3 class="text-light p-3 mt-4"></h3>
       </div>
+    </div>
 
-  </main>
+  </div>
   <div class="container-fluid px-0">
     <FooterHome />
   </div>

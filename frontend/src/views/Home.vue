@@ -1,10 +1,16 @@
 <script>
 
 import Navbar from "@/components/Navbar.vue";
+import {ref} from "vue";
+import Loader from "@/components/Loader.vue";
 
 export default {
   name: "Home",
-  components: {Navbar},
+  components: {Loader, Navbar},
+  setup(){
+
+
+  }
 
 
 }
@@ -14,7 +20,8 @@ export default {
 <template>
   <Navbar />
     <div>
-      <router-view></router-view>
+      <router-view>
+      </router-view>
     </div>
 </template>
 

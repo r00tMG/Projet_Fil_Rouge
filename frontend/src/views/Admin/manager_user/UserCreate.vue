@@ -4,8 +4,10 @@ import axios from "@/axios.js";
 import { useRouter } from 'vue-router'
 import logo from '@/assets/images/logo.png';
 import Swal from "sweetalert2";
+import Loader from "@/components/Loader.vue";
 export default {
   name: 'UserCreate',
+  components: {Loader},
   setup(){
     const name = ref('')
     const email = ref('')
@@ -18,6 +20,8 @@ export default {
     const data = ref([])
     const router = useRouter()
     const token = localStorage.getItem('token')
+const isLoading = ref(false)
+
     const onProfile = (e) => {
       photo_profile.value = e.target.files[0]
       console.log('Selected file:', photo_profile.value);
@@ -104,13 +108,16 @@ export default {
       data,
       selectRoles,
       getRoles,
-      logo
+      logo,
+      isLoading
     }
   }
 }
 </script>
 
 <template>
+  <Loader  :isLoading="isLoading"/>
+
 <div class="container my-3 shadow rounded-4 border border-success">
   <div class="p-2 w-100">
     <p class="tulisan_login">Créer un utilisateur</p>
@@ -203,7 +210,7 @@ label {
 }
 
 .tombol_login {
-  background: green;
+  background: #3D8854;
   color: white;
   font-size: 11pt;
   width: 100%;

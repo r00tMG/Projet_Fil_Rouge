@@ -4,6 +4,7 @@ import {onMounted, ref} from "vue";
 import axios from "@/axios.js";
 import logo from '@/assets/images/logo.png';
 import Swal from "sweetalert2";
+import Loader from "@/components/Loader.vue";
 
 const route = useRoute()
 const name = ref('')
@@ -14,6 +15,7 @@ const role = ref([])
 const router = useRouter()
 const errors = ref({})
 const data = ref([])
+const isLoading = ref(false)
 
 let token = localStorage.getItem('token')
 
@@ -98,6 +100,7 @@ const onSubmit = async () => {
 </script>
 
 <template>
+  <Loader  :isLoading="isLoading"/>
 <div class="container border border-success mt-2 rounded-4 shadow ">
   <div class="p-3 w-100">
     <p class="tulisan_login">Modifier un role</p>
@@ -161,7 +164,7 @@ label {
 }
 
 .tombol_login {
-  background: green;
+  background: #3D8854;
   color: white;
   font-size: 11pt;
   width: 100%;

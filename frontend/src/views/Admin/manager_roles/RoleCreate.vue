@@ -4,13 +4,14 @@ import { useRouter } from 'vue-router';
 import axios from "@/axios.js";
 import logo from '@/assets/images/logo.png';
 import Swal from "sweetalert2";
+import Loader from "@/components/Loader.vue";
 const name = ref('');
 const permissions = ref([]);
 const allPermissions = ref([]);
 const errors = ref({});
 const router = useRouter();
 const token = localStorage.getItem('token');
-
+const isLoading=ref(false)
 const fetchPermissions = async () => {
   try {
     const response = await axios.get('/permissions', {
@@ -64,6 +65,7 @@ fetchPermissions();
 </script>
 
 <template>
+  <Loader  :isLoading="isLoading"/>
   <div class="container border border-success mt-2 rounded-4 shadow p-3">
     <p class="tulisan_login">Créer un role</p>
     <img :src="logo" alt="Logo">
@@ -96,47 +98,6 @@ fetchPermissions();
 
   </div>
 
-<!--  <div>
-
-    <div v-if="errors.length > 0" class="alert alert-danger">
-      <strong>Whoops!</strong> Something went wrong.<br><br>
-      <ul>
-        <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
-      </ul>
-    </div>
-
-    <form @submit.prevent="submitForm">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="mb-3">
-            <label for="name" class="form-label"><strong>Name:</strong></label>
-            <input type="text" v-model="name" placeholder="Name" class="form-control" />
-          </div>
-
-          <div class="mb-3">
-            <label for="permission" class="form-label"><strong>Permissions:</strong></label>
-            <div class="list-group">
-              <label
-                  v-for="permission in allPermissions"
-                  :key="permission.id"
-                  class="list-group-item d-flex align-items-center">
-                <input
-                    type="checkbox"
-                    v-model="permissions"
-                    :value="permission.id"
-                    class="form-check-input me-3"
-                />
-                {{ permission.name }}
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12 text-center">
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-      </div>
-    </form>
-  </div>-->
 </template>
 
 
@@ -179,7 +140,7 @@ label {
 }
 
 .tombol_login {
-  background: green;
+  background: #3D8854;
   color: white;
   font-size: 11pt;
   width: 100%;

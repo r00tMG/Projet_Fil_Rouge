@@ -4,8 +4,10 @@ import {useRoute, useRouter} from "vue-router";
 import axios from "@/axios.js";
 import logo from '@/assets/images/logo.png';
 import Swal from "sweetalert2";
+import Loader from "@/components/Loader.vue";
   export default {
     name: "UserEdit",
+    components: {Loader},
     setup(){
       const route = useRoute()
       const name = ref('')
@@ -20,6 +22,8 @@ import Swal from "sweetalert2";
       const errors = ref({})
       const data = ref([])
       const token = localStorage.getItem('token')
+const isLoading = ref(false)
+
 
       onMounted(async () => {
         const r = await axios.get(`/users/${route.params.id}`,{
@@ -116,7 +120,8 @@ import Swal from "sweetalert2";
         errors,
         onUpdate,
         onProfile,
-        logo
+        logo,
+        isLoading
       }
     }
   }
@@ -126,6 +131,8 @@ import Swal from "sweetalert2";
 </script>
 
 <template>
+  <Loader  :isLoading="isLoading"/>
+
   <div class="container my-3 shadow rounded-4 border border-success">
     <div class="p-2 w-100">
     <p class="tulisan_login">Modifier un Utilisateur</p>
@@ -214,7 +221,7 @@ label {
 }
 
 .tombol_login {
-  background: green;
+  background: #3D8854;
   color: white;
   font-size: 11pt;
   width: 100%;

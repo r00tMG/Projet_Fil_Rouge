@@ -47,6 +47,7 @@ export default {
           errors.value = error.response.data.errors;
           console.error("Validation errors:", errors.value);
         } else {
+          errors.value = error.response.data.errors;
           console.error("Error: La requête a échoué", error);
         }
       }
@@ -64,7 +65,7 @@ export default {
       console.log(profile.value.profiles.length)
       if (profile.value.profiles.length > 0)
       {
-        await router.push('/profile/index')
+        await router.push('/profile')
       }else{
         await router.push('/create/profile')
 
@@ -83,7 +84,7 @@ export default {
 
 <template>
   <div class="container">
-    <div class="row border rounded-1 m-5 shadow border-success">
+    <div class="row border rounded-1 m-5 shadow-sm border-success">
       <div class="col-md-6  bg-success ">
       <h1 class="text-light mt-5 text-center">Login</h1>
       </div>
@@ -93,12 +94,12 @@ export default {
           <form @submit.prevent="onLogin">
             <label>Email</label>
             <input type="text" v-model="email" name="email" class="form_login" placeholder="Email..">
-            <p class="text-center" v-if="errors.email">{{errors.email[0]}}</p>
+            <p class="text-danger" v-if="errors.email">{{errors.email[0]}}</p>
             <label>Password</label>
             <input type="password" v-model="password"	name="password" class="form_login" placeholder="Password ..">
 
             <input type="submit" class="tombol_login" value="LOGIN">
-            <p>Si vous n'êtes pas inscrite veuillez<router-link to="/register"> cliquer ici</router-link></p>
+            <p>Si vous n'êtes pas inscrite veuillez <router-link to="/register">cliquer ici</router-link></p>
           </form>
 
         </div>
@@ -149,7 +150,7 @@ label {
 }
 
 .tombol_login {
-  background: green;
+  background: #3D8854;
   color: white;
   font-size: 11pt;
   width: 100%;
